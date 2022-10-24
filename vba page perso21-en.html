@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Twenty-first case: Stripping uppercase words.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I want to exctract all words in uppercase and generate a list with them.</q></p>
+	<p>How to solve the problem:</p>
+	<pre>
+	<code>
+	Sub touvermaj()
+
+	Dim arr() As String
+	Dim x As Integer
+	Dim i As Integer
+	Dim n As Integer
+	Dim q As Integer
+	Dim apos As String
+	Dim newapos As String
+
+	x = 1
+
+	For i = 1 To Cells(Rows.Count, 1).End(xlUp).Row
+		apos = Cells(i, 2)
+		newapos = Replace(apos, "’", " ")
+		arr = Split(newapos, " ")
+		For n = 0 To UBound(arr)
+			If arr(n) = UCase(arr(n)) And Not IsNumeric(arr(n)) Then
+				Cells(x, 5) = arr(n)
+				Cells(x, 6) = i
+				x = x + 1
+           
+			End If
+        
+			Debug.Print arr(n)
+		Next n
+	Next i
+    
+	For q = 0 To UBound(arr)
+
+		Debug.Print arr(q)
+
+	Next q
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

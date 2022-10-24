@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Accueil</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Ninth case: select negative range.</p>
+	<p>Summary of the problem:</p>
+	<p><q>First column "B" has to be sorted. Then I need to select the range of negative values.</q></p>
+	<p><q>Note: Obtained data will be dynamic, number of rows is not fixed.</q></p>
+	<p>Code to populate the worksheet randomly:</p>
+	<pre>
+	<code>
+	Sub PopulateColumns()
+
+	Dim i As Integer
+	Dim q As Integer
+
+	Randomize
+
+	For i = 1 To 3
+		For q = 2 To 30
+			Cells(q, i) = Int((((-1 * Rnd) + Rnd) * 30) + 1)
+        
+		Next q
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>Code to select negative values:</p>
+	<pre>
+	<code>
+	Sub trier()
+
+	Dim i As Integer
+
+	Range("B2", Range("B2").End(xlDown)).Sort Key1:=Columns(2), Order1:=xlAscending, Header:=xlNo
+
+	i = 2
+
+	Do While Cells(i, 2).Value &lt; 0
+		i = i + 1
+    
+	Loop
+
+	If i &gt; 2 Then
+		Range("B2", "B" & i - 1).Select
+    
+	End If
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Onzième cas: Supprimer certains éléments d'une chaîne de caractères.</p>
+	<p>Ce que nous avons:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>60079804-S/O PALMER DONAVIN MFG</td>
+				</tr>
+				<tr>
+					<td>60008517-S/O READY CABLE INC.</td>
+				</tr>
+				<tr>
+					<td>60008049-S/O ACORN INTERNATIONAL</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous voulons obtenir:</p>
+	<table>
+		<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">modified</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>60079804-PALMER DONAVIN MFG</td>
+				</tr>
+				<tr>
+					<td>60008517-READY CABLE INC.</td>
+				</tr>
+				<tr>
+					<td>60008049-ACORN INTERNATIONAL</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Le code pour arriver au résultat:</p>
+	<p>SELECT Replace(Replace(ID,"S/O",""), "- ", "-") AS modified<br>
+	FROM donnee;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>	

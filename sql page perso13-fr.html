@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Treizième cas: Obtenir le décompte des jours où la balance a été négative.</p>
+	<p>Situation de départ:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">Date</th>
+					<th scope="col">User</th>
+					<th scope="col">Balance</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>06/07/2022</td>
+					<td>John Doe</td>
+					<td>-100</td>
+				</tr>
+				<tr>
+					<td>05/07/2022</td>
+					<td>John Doe</td>
+					<td>-100</td>
+				</tr>
+				<tr>
+					<td>04/07/2022</td>
+					<td>John Doe</td>
+					<td>-100</td>
+				</tr>
+				<tr>
+					<td>03/07/2022</td>
+					<td>John Doe</td>
+					<td>-100</td>
+				</tr>
+				<tr>
+					<td>02/07/2022</td>
+					<td>John Doe</td>
+					<td>-100</td>
+				</tr>
+				<tr>
+					<td>01/07/2022</td>
+					<td>John Doe</td>
+					<td>20</td>
+				</tr>
+				<tr>
+					<td>30/06/2022</td>
+					<td>John Doe</td>
+					<td>-300</td>
+				</tr>
+				<tr>
+					<td>30/06/2022</td>
+					<td>John Doe</td>
+					<td>538</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous voulons:</p>
+	<table>
+		<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">user</th>
+					<th scope="col">Expr1001</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>John Doe</td>
+					<td>5</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Le code pour obtenir le résultat ci-dessus:</p>
+	<p>SELECT a.user, Count(a.balance)<br>
+	FROM donnee AS a<br>
+	WHERE a.balance &lt; 0 AND date BETWEEN DATE() AND (SELECT Max(date) FROM donnee WHERE a.user = user AND balance &gt; 0)<br>
+	GROUP BY a.user;</p>
+	<p>Une requête avec des améliorations pour atténuer les limites de la première solution:</p>
+	<p>SELECT a.user, IIF(NOT EXISTS(SELECT date FROM donneeb WHERE date = DATE() AND user = a.user), "Missing data", Count(a.balance))<br>
+	FROM donneeb AS a<br>
+	WHERE a.balance &lt; 0 AND date BETWEEN DATE() AND (SELECT Max(date) FROM donneeb WHERE a.user = user AND balance &gt; 0)<br>
+	GROUP BY a.user;</p>
+	<div id="comment"></div>
+	<label for="comments">Add a comment (only visible by you until you refresh the page as an experimental feature):</label><br>
+	<textarea id="comments" maxlength="1000">Your comment here</textarea><br>
+	<button id="commentButton" onclick="ajouterComment()">Add</button>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

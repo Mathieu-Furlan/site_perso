@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Vingt-et-unième cas: isoler les mots ne contenant que des capitales.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais extraire les mots en majuscules et générer une liste les contenant.</q></p>
+	<p>Comment résoudre le cas:</p>
+	<pre>
+	<code>
+	Sub touvermaj()
+
+	Dim arr() As String
+	Dim x As Integer
+	Dim i As Integer
+	Dim n As Integer
+	Dim q As Integer
+	Dim apos As String
+	Dim newapos As String
+
+	x = 1
+
+	For i = 1 To Cells(Rows.Count, 1).End(xlUp).Row
+		apos = Cells(i, 2)
+		newapos = Replace(apos, "’", " ")
+		arr = Split(newapos, " ")
+		For n = 0 To UBound(arr)
+			If arr(n) = UCase(arr(n)) And Not IsNumeric(arr(n)) Then
+				Cells(x, 5) = arr(n)
+				Cells(x, 6) = i
+				x = x + 1
+           
+			End If
+        
+			Debug.Print arr(n)
+		Next n
+	Next i
+    
+	For q = 0 To UBound(arr)
+
+		Debug.Print arr(q)
+
+	Next q
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

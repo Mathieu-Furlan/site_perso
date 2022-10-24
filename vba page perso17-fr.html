@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Dix-septième cas: trouver la valeur la plus élevée d'une colonne.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais savoir quelle ligne à la plus haute valeur dans la colonne "A"</q></p>
+	<p>Nous générons d'abord des données aléatoires:</p>
+	<pre>
+	<code>
+	Sub populatecolumn()
+
+	Dim i As Integer
+
+	Randomize
+
+	For i = 1 To 30
+
+		Cells(i, 1) = Int((Rnd * 500) + 1)
+    
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>Ensuite la solution:</p>
+	<pre>
+	<code>
+	Sub trouverplusgrand()
+
+	Dim x As Double
+	Dim i As Integer
+
+	x = Application.Max(Range("A:A"))
+
+	For i = 0 To ActiveSheet.UsedRange.Rows.Count
+
+		If Range("A1").Offset(i, 0) = x Then
+			MsgBox "Maximum value is in row " & i + 1, vbInformation
+			Exit For
+		End If
+	Next
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

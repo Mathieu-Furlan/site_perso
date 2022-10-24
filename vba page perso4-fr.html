@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Troisième cas: remplir une colonne en fonction d'une valeur dans une ligne.</p>
+	<p>Résumé du problème:</p>
+	<p><q>J'essaye d'obtenir une macro VBA qui, pour chaque ligne dans un interval donné, si le charactère "Y" apparait ne serait-ce une seul fois, alors la colonne "V" de la même ligne sera remplie de "Y".</q></p>
+	<p><q>Si aucun "Y" est trouvé; c.a.d. si chaque valeur de la ligne est "N", alors la colonne "V" sera remplie de "N".</q></p>
+	<p>Le code (qui génère des valeurs aléatoires pour réaliser des tests) qui permet d'obtenir le résultat:<p>
+	<pre>
+	<code>
+	Sub verif()
+
+	Dim i As Integer
+	Dim q As Integer
+	Dim r As Double
+	Dim lastrow As Integer
+	Dim j As Integer
+	Dim res
+
+	Randomize
+
+	For i = 1 To 15
+		For q = 1 To 15
+    
+		r = Rnd
+    
+			If r > 0.95 Then
+				Cells(i, q) = "Y"
+    
+			Else
+				Cells(i, q) = "N"
+            
+			End If
+    
+		Next q
+	Next i
+
+	lastrow = Cells(Rows.Count, "A").End(xlUp).Row
+
+	For j = 1 To lastrow
+    
+		For Each res In Range(Cells(j, 1), Cells(j, 15))
+			If res = "Y" Then
+				Cells(j, 17) = "Y"
+				Exit For
+           
+			Else: Cells(j, 17) = "N"
+       
+			End If
+       
+		Next
+    
+	Next j
+   
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

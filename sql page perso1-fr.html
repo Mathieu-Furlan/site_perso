@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Premier cas: trier par différences en pourcentage</p>
+	<p>Situation initiale:<p>
+	<table>
+		<caption>Table1</caption>
+			<thead>
+				<tr>
+					<th scope="col">NumberA</th>
+					<th scope="col">NumberB</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>105</td>
+					<td>100</td>
+				</tr>
+				<tr>
+					<td>120</td>
+					<td>110</td>
+				</tr>
+				<tr>
+					<td>115</td>
+					<td>134</td>
+				</tr>
+				<tr>
+					<td>140</td>
+					<td>170</td>
+				</tr>
+					<td>140</td>
+					<td>190</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous voulons obtenir:</p>
+	<table>
+		<caption>Result</caption>
+			<thead>
+				<tr>
+					<th scope="col">NumberA</th>
+					<th scope="col">NumberB</th>
+					<th scope="col">Range</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>105</td>
+					<td>100</td>
+					<td>0-6%</td>
+				</tr>
+				<tr>
+					<td>120</td>
+					<td>110</td>
+					<td>7-15%</td>
+				</tr>
+				<tr>
+					<td>115</td>
+					<td>134</td>
+					<td>15-20%</td>
+				</tr>
+				<tr>
+					<td>140</td>
+					<td>170</td>
+					<td>More than 20%</td>
+				</tr>
+					<td>140</td>
+					<td>190</td>
+					<td>More than 20%</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Pour finir le code utilisé pour obtenir les résultats:</p>
+	<p>SELECT Table1.*, SWITCH(abs(NumberB/NumberA-1)<=0.06,"0-6%",abs(NumberB/NumberA-1)<=0.15,"7-15%",abs(NumberB/NumberA-1)<=0.2,"15-20%",abs(NumberB/NumberA-1)>0.2,"More than 20%") AS Range<br>
+	FROM Table1;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

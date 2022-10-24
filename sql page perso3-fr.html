@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Troisième cas: Compléter les valeurs manquantes d'une colonne pour s'accorder au groupe.</p>
+	<p>Situation initiale:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Grp</th>
+					<th scope="col">Month</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+					<td>A</td>
+					<td>202201</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>A</td>
+					<td>202203</td>
+				</tr>
+				<tr>
+					<td>1234</td>
+					<td>A</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>B</td>
+					<td>202201</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>B</td>
+					<td>202203</td>
+				</tr>
+				<tr>
+					<td>AB1234</td>
+					<td>B</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>C</td>
+					<td>202201</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>C</td>
+					<td>202203</td>
+				</tr>
+				<tr>
+					<td>3333</td>
+					<td>C</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td>3333</td>
+					<td>C</td>
+					<td>202205</td>
+				</tr>
+				<tr>
+					<td>4444</td>
+					<td>C</td>
+					<td>202206</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>T</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>T</td>
+					<td>202205</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>T</td>
+					<td>202206</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>D</td>
+					<td>202201</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>D</td>
+					<td>202203</td>
+				</tr>
+				<tr>
+					<td>A555</td>
+					<td>D</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>D</td>
+					<td>202205</td>
+				</tr>
+				<tr>
+					<td>6666</td>
+					<td>D</td>
+					<td>202206</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que l'on souhaite obtenir:</p>
+	<table>
+		<caption>Result</caption>
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Grp</th>
+					<th scope="col">Month</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1234</td>
+					<td>A</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td>1234</td>
+					<td>A</td>
+					<td>202203</td>
+				</tr>
+				<tr>
+					<td>1234</td>
+					<td>A</td>
+					<td>202201</td>
+				</tr>
+				<tr>
+					<td>AB1234</td>
+					<td>B</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td>AB1234</td>
+					<td>B</td>
+					<td>202203</td>
+				</tr>
+				<tr>
+					<td>AB1234</td>
+					<td>B</td>
+					<td>202201</td>
+				</tr>
+				<tr>
+					<td>4444</td>
+					<td>C</td>
+					<td>202206</td>
+				</tr>
+				<tr>
+					<td>3333</td>
+					<td>C</td>
+					<td>202205</td>
+				</tr>
+				<tr>
+					<td>3333</td>
+					<td>C</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td>3333</td>
+					<td>C</td>
+					<td>202203</td>
+				</tr>
+				<tr>
+					<td>3333</td>
+					<td>C</td>
+					<td>202201</td>
+				</tr>
+				<tr>
+					<td>6666</td>
+					<td>D</td>
+					<td>202206</td>
+				</tr>
+				<tr>
+					<td>6666</td>
+					<td>D</td>
+					<td>202205</td>
+				</tr>
+				<tr>
+					<td>A555</td>
+					<td>D</td>
+					<td>202204</td>
+				</tr>
+				<tr>
+					<td>A555</td>
+					<td>D</td>
+					<td>202203</td>
+				</tr>
+				<tr>
+					<td>A555</td>
+					<td>D</td>
+					<td>202201</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>T</td>
+					<td>202206</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>T</td>
+					<td>202205</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>T</td>
+					<td>202204</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Le code lié au résultat ci-dessus:</p>
+	<p>SELECT IIF(a.ID IS NULL, (SELECT TOP 1 b.ID FROM donnee b WHERE b.Grp = a.Grp AND b.ID IS NOT NULL AND b.Month > a.Month), a.ID), a.Grp, a.Month<br>
+	FROM donnee AS a<br>
+	ORDER BY Grp, Month DESC;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Vingt-troisième cas: Dénombrer les valeurs uniques.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais avoir le décompte des valeurs uniques.</q></p>
+	<p>Le code pour générer des valeurs aléatoires:</p>
+	<pre>
+	<code>
+	Sub populaterange()
+
+	Randomize
+
+	Dim i As Integer
+	Dim q As Integer
+	Dim u As Integer
+	Dim y As Integer
+	Dim x As Integer
+
+
+	y = 20
+
+	For i = 1 To 7
+		For q = 1 To 15
+			Cells(q, i) = Int((Rnd * y) + 1)
+		Next q
+	Next i
+
+	x = 0
+	Range("J1:J" & Cells(Rows.Count, 10).End(xlUp).Row).ClearContents
+	Cells(1, 12).ClearContents
+	For u = 1 To y
+		Cells(u, 10) = Application.CountIf(Range("A1:G15"), u)
+		If Cells(u, 10) = 1 Then
+			x = x + 1
+		End If
+	Next u
+
+	Cells(1, 12) = x
+
+	End Sub
+	</code>
+	</pre>
+	<p>La subroutine qui répond à la question:</p>
+	<pre>
+	<code>
+	Sub trouvervaluniques()
+
+	Dim dict As Scripting.Dictionary
+	Dim plage As Range
+	Dim cellule As Range
+	Dim i As Long
+	Dim x As Integer
+	Dim lRow As Long
+	Dim lColumn As Long
+
+	Set dict = New Scripting.Dictionary
+
+	lRow = Range("A1").End(xlDown).Row
+	lColumn = Range("A1").End(xlToRight).Column
+	Set plage = Range(Cells(1, 1), Cells(lRow, lColumn))
+
+	For Each cellule In plage
+		If Not dict.Exists(cellule.Value) Then
+			dict.Add cellule.Value, "Unique"
+    
+		ElseIf dict.Exists(cellule.Value) Then
+			dict.Remove cellule.Value
+			dict.Add cellule.Value, "Multiple"
+    
+		End If
+	Next cellule
+
+	x = 0
+
+	For i = 0 To dict.Count - 1
+		If dict.Items(i) = "Unique" Then
+			x = x + 1
+		End If
+	Next i
+
+	MsgBox "Valeurs Uniques: " & x
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

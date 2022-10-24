@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Heighteenth case: Find cell's number in which value is the date of today.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I am trying to locate the celle in which is entered the date of today.</q></p>
+	<p><q>Say today date is 22 April 2022, I need the macro to return an integer wich indicates the position of the cell in the row.</q></p>
+	<p>Create a set of random data:</p>
+	<pre>
+	<code>
+	Sub populatedates()
+
+	Dim i As Integer
+
+	Range("A1", Columns(Cells(1, Columns.Count).End(xlToLeft).Column)).Font.Color = vbBlack
+
+	For i = 1 To 30
+
+		Cells(1, i) = (Date - 3) + i
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>How to do what is asked:</p>
+	<pre>
+	<code>
+	Sub trouverdate()
+
+	Dim d As Range
+
+	Set d = Range("A1", Columns(Cells(1, Columns.Count).End(xlToLeft).Column)).Find(Date, LookIn:=xlValues)
+
+	If Not d Is Nothing Then
+		d.Font.Color = vbRed
+	Else
+		MsgBox "Date not found"
+    
+	End If
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

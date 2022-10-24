@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Douzième cas: selectionner un nombre défini de valeurs dans une colonne.</p>
+	<p>Résumé du problème:</p>
+	<p><q>J'ai un tableau qui contient un grand nombre d'informations, comment selectionner uniquement ce qui correspond au dernier mois?</q></p>
+	<p><q>(c.a.d. uniquement les dernières 31 cellules de la colonne?)</q></p>
+	<p>Code pour créer aléatoirement des dates:</p>
+	<pre>
+	<code>
+	Sub CreerDates()
+
+	Dim i As Integer
+	Dim mois
+	Dim jour
+
+	Randomize
+	For i = 1 To 40
+
+	mois = Int((Rnd * 12) + 1)
+	jour = Int((Rnd * 31) + 1)
+
+	If mois &lt; 10 Then
+		mois = 0 & mois
+	End If
+
+	If jour &lt; 10 Then
+		jour = 0 & jour
+	End If
+
+	Cells(i, 1) = jour & "/" & mois & "/" & Int((Rnd * 2022) + 1)
+	Cells(i, 2) = Int((Rnd * 40) + 1)
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>Comment selectionner les dernières 31 valeurs d'une colonne:</p>
+	<pre>
+	<code>
+	Sub Derniermois()
+
+	Dim y As Integer
+	Dim x As Integer
+
+	x = Cells(Rows.Count, 1).End(xlUp).Row
+
+	y = x - 31
+
+	Range(Cells(y, 1), Cells(x, 2)).Select
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Seventh case: Display results from a table depending on values from another</p>
+	<p>What we have:<p>
+	<table>
+		<caption>project</caption>
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>ABC</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>DEF</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>GHI</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>JKL</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>MNO</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>PQR</td>
+				</tr>
+			</tbody>
+	</table><br>
+	<table>
+		<caption>attachment</caption>
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Status</th>
+					<th scope="col">ProjectId</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>a1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>a1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>a2</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>a2</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>a1</td>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>a2</td>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>a1</td>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>a2</td>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>a3</td>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>10</td>
+					<td>a1</td>
+					<td>5</td>
+				</tr>
+				<tr>
+					<td>11</td>
+					<td>a2</td>
+					<td>5</td>
+				</tr>
+				<tr>
+					<td>12</td>
+					<td>a4</td>
+					<td>5</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>We would like to fetch project names with both attachment status a1 and a2 (must have both) and no attachment status a3 or a4.</p>
+	<p>The result should be: GHI</p>
+	<p>Below is the code to obtain such result:</p>
+	<p>SELECT a.Name<br>
+	FROM project AS a<br>
+	WHERE EXISTS (SELECT Status FROM attachment b WHERE b.ProjectId = a.Id AND status = "a1") AND EXISTS (SELECT Status FROM attachment b WHERE b.ProjectId = a.Id AND status = "a2")<br>
+	AND NOT EXISTS(SELECT Status FROM attachment b WHERE b.ProjectId = a.Id AND status = "a3") AND NOT EXISTS(SELECT Status FROM attachment b WHERE b.ProjectId = a.Id AND status = "a4")<br>
+	GROUP BY a.Name;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

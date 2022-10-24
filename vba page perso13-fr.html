@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Treizième cas: additionner des valeurs par mois.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais faire la somme de valeurs par mois. La colonne month contient des dates.</q></p>
+	<p>Macro pour générer aléatoirement des dates:<p>
+	<pre>
+	<code>
+	Sub CreerDates()
+
+	Dim i As Integer
+	Dim u As Integer
+	Dim jour
+	Dim mois
+	Dim annee
+
+	Randomize
+
+	For i = 1 To 20
+
+	jour = Int((Rnd * 31) + 1)
+	mois = Int((Rnd * 3) + 1)
+
+	Cells(i, 1) = jour & "/" & mois & "/" & 2008
+	Cells(i, 2) = Int((Rnd * 7) + 1)
+
+	Next i
+
+	Columns(3).ClearContents
+	Columns(4).ClearContents
+
+	End Sub
+	</code>
+	</pre>
+	<p>Code pour résoudre le cas:</p>
+	<pre>
+	<code>
+	Sub SommeB()
+
+	Dim q As Integer
+	Dim i As Integer
+	Dim u As Integer
+
+	For q = 1 To 12
+		For i = 1 To Cells(Rows.Count, 1).End(xlUp).Row
+        
+			If Month(Cells(i, 1)) = q Then
+				u = u + Cells(i, 2)
+				Cells(q, 3) = q
+				Cells(q, 4) = u
+				Debug.Print (u)
+            
+			ElseIf IsEmpty(Cells(q, 3)) Then
+				Cells(q, 3) = q
+				Cells(q, 4) = 0
+            
+			End If
+    
+		Next i
+		u = 0
+		Cells(q, 3) = MonthName(q) & " " & Year(Cells(q, 1))
+	Next q
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

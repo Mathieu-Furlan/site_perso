@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Neuvième cas: selectionner un interval négatif.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Premièrement il faudrait trier la colonne "B". Ensuite il faut selectionner l'interval de valeurs négatives.</q></p>
+	<p><q>Note: les données seront dynamiquement obtenues, le nombre de ligne n'est pas fixe.</q></p>
+	<p>Code pour générer des données aléatoires:</p>
+	<pre>
+	<code>
+	Sub PopulateColumns()
+
+	Dim i As Integer
+	Dim q As Integer
+
+	Randomize
+
+	For i = 1 To 3
+		For q = 2 To 30
+			Cells(q, i) = Int((((-1 * Rnd) + Rnd) * 30) + 1)
+        
+		Next q
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>Code pour selectionner les valeurs négatives:</p>
+	<pre>
+	<code>
+	Sub trier()
+
+	Dim i As Integer
+
+	Range("B2", Range("B2").End(xlDown)).Sort Key1:=Columns(2), Order1:=xlAscending, Header:=xlNo
+
+	i = 2
+
+	Do While Cells(i, 2).Value &lt; 0
+		i = i + 1
+    
+	Loop
+
+	If i &gt; 2 Then
+		Range("B2", "B" & i - 1).Select
+    
+	End If
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

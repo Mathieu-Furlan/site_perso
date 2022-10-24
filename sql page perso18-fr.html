@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Dix-huitième cas: selectionner des lignes en fonction de conditions.</p>
+	<p>Table de départ:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">incident_id</th>
+					<th scope="col">inc_start</th>
+					<th scope="col">inc_description</th>
+					<th scope="col">element_name</th>
+					<th scope="col">uid</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>01/05/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>01/05/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>02/05/2022</td>
+					<td>firewall issue</td>
+					<td>vm-002</td>
+					<td>vm-002_firewall_issue</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>03/05/2022</td>
+					<td>firewall issue</td>
+					<td>vm-003</td>
+					<td>vm-003_firewall_issue</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>01/06/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>01/06/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>02/06/2022</td>
+					<td>server unreach</td>
+					<td>vm-003</td>
+					<td>vm-003_server_unreach</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>19/11/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Nous voudrions différencier les lignes où inc_description et uid sont identiques et où inc_start est dans un interval de 90 jours après le précédent accident identique.</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">incident_id</th>
+					<th scope="col">inc_start</th>
+					<th scope="col">inc_description</th>
+					<th scope="col">element_name</th>
+					<th scope="col">uid</th>
+					<th scope="col">is_repeated</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>01/05/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>01/05/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>02/05/2022</td>
+					<td>firewall issue</td>
+					<td>vm-002</td>
+					<td>vm-002_firewall_issue</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>03/05/2022</td>
+					<td>firewall issue</td>
+					<td>vm-003</td>
+					<td>vm-003_firewall_issue</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>01/06/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+					<td>yes</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>01/06/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+					<td>yes</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>02/06/2022</td>
+					<td>server unreach</td>
+					<td>vm-003</td>
+					<td>vm-003_server_unreach</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>19/11/2022</td>
+					<td>server down</td>
+					<td>vm-001</td>
+					<td>vm-001_server_down</td>
+					<td>no</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>La requête pour obtenir le résultat ci-dessus:</p>
+	<p>SELECT a.*, IIF(a.incident_id IN ((SELECT b.incident_id <br>
+	FROM donnee b, donnee c<br>
+	WHERE b.inc_description = c.inc_description AND b.uid = c.uid AND b.inc_start BETWEEN c.inc_start + 1 AND c.inc_start + 90)),"yes","no") AS is_repeated<br>
+	FROM donnee AS a;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

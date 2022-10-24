@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Cinquième cas: trier des collens par ordre alphabétique.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Il ya deux colonnes sans ordre défini, comment les trier alphabétiquement?</q></p>
+	<p><q>La première colonne en prioprité sur la seconde.</q></p>
+	<p>Le code qui rempli la fonction requise:</p>
+	<pre>
+	<code>
+	Sub trialpha()
+
+	Range("A1:B9").Sort Key1:=Range("A1"), Key2:=Range("B1"), Orientation:=xlSortColumns
+	Range("B1:B9").Sort Key1:=Range("B1"), Orientation:=xlSortColumns
+
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

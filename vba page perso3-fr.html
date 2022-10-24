@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Troisième cas: concaténer n'importe quel nombre de ligne en trois colonnes.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je travail sur une extraction excel. Il s'agit simplement de plusieurs colonnes avec quelques lignes pour chacune.</p></q>
+	<p><q>Je voudrais applanir ces données en trois colonnes.</q></p>
+	<p>Le code pour réaliser ce qui est demandé:</p>
+	<pre>
+	<code>
+	Sub flatten()
+
+	Dim i As Integer
+	Dim q As Integer
+	Dim a As Integer
+	Dim b As Integer
+	Dim u As Integer
+
+	a = Cells(Rows.Count, "A").End(xlUp).Row
+	b = Int(Cells(1, Columns.Count).End(xlToLeft).Column) / 3
+
+	Debug.Print (b)
+
+	For u = 1 To b - 1
+		For i = 1 To 3
+			For q = 1 To a
+        
+				Cells(a * u + q, i) = Cells(q, i + (u * 3))
+				Cells(q, i + (u * 3)).ClearContents
+        
+			Next q
+		Next i
+	Next u
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

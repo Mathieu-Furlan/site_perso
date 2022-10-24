@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Fifth case: sort two columns alphabetically.</p>
+	<p>Summary of the problem:</p>
+	<p><q>There are two columns in undefined order, how to sort them alphabetically</q></p>
+	<p><q>The first one in priority over the second.</q></p>
+	<p>the code to fulfill the request:</p>
+	<pre>
+	<code>
+	Sub trialpha()
+
+	Range("A1:B9").Sort Key1:=Range("A1"), Key2:=Range("B1"), Orientation:=xlSortColumns
+	Range("B1:B9").Sort Key1:=Range("B1"), Orientation:=xlSortColumns
+
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

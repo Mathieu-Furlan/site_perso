@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Tenth case: Select only the top 5 results for each id.</p>
+	<p>What we have:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">annee</th>
+					<th scope="col">id</th>
+					<th scope="col">taux</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2006</td>
+					<td>p01</td>
+					<td>8</td>
+				</tr>
+				<tr>
+					<td>2003</td>
+					<td>p01</td>
+					<td>7,4</td>
+				</tr>
+				<tr>
+					<td>2008</td>
+					<td>p01</td>
+					<td>6,8</td>
+				</tr>
+				<tr>
+					<td>2001</td>
+					<td>p01</td>
+					<td>5,9</td>
+				</tr>
+				<tr>
+					<td>2007</td>
+					<td>p01</td>
+					<td>5,3</td>
+				</tr>
+				<tr>
+					<td>2009</td>
+					<td>p01</td>
+					<td>4,4</td>
+				</tr>
+				<tr>
+					<td>2002</td>
+					<td>p01</td>
+					<td>3,9</td>
+				</tr>
+				<tr>
+					<td>2004</td>
+					<td>p01</td>
+					<td>3,5</td>
+				</tr>
+				<tr>
+					<td>2005</td>
+					<td>p01</td>
+					<td>2,1</td>
+				</tr>
+				<tr>
+					<td>2000</td>
+					<td>p01</td>
+					<td>0,8</td>
+				</tr>
+				<tr>
+					<td>2001</td>
+					<td>p02</td>
+					<td>12,5</td>
+				</tr>
+				<tr>
+					<td>2004</td>
+					<td>p02</td>
+					<td>12,4</td>
+				</tr>
+				<tr>
+					<td>2002</td>
+					<td>p02</td>
+					<td>12,2</td>
+				</tr>
+				<tr>
+					<td>2003</td>
+					<td>p02</td>
+					<td>10,3</td>
+				</tr>
+				<tr>
+					<td>2000</td>
+					<td>p02</td>
+					<td>8,7</td>
+				</tr>
+				<tr>
+					<td>2006</td>
+					<td>p02</td>
+					<td>4,6</td>
+				</tr>
+				<tr>
+					<td>2007</td>
+					<td>p02</td>
+					<td>3,3</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>What we would like to achieve:</p>
+	<table>
+		<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">annee</th>
+					<th scope="col">id</th>
+					<th scope="col">taux</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2006</td>
+					<td>p01</td>
+					<td>8</td>
+				</tr>
+				<tr>
+					<td>2003</td>
+					<td>p01</td>
+					<td>7,4</td>
+				</tr>
+				<tr>
+					<td>2008</td>
+					<td>p01</td>
+					<td>6,8</td>
+				</tr>
+				<tr>
+					<td>2001</td>
+					<td>p01</td>
+					<td>5,9</td>
+				</tr>
+				<tr>
+					<td>2007</td>
+					<td>p01</td>
+					<td>5,3</td>
+				</tr>
+				<tr>
+					<td>2001</td>
+					<td>p02</td>
+					<td>12,5</td>
+				</tr>
+				<tr>
+					<td>2004</td>
+					<td>p02</td>
+					<td>12,4</td>
+				</tr>
+				<tr>
+					<td>2002</td>
+					<td>p02</td>
+					<td>12,2</td>
+				</tr>
+				<tr>
+					<td>2003</td>
+					<td>p02</td>
+					<td>10,3</td>
+				</tr>
+				<tr>
+					<td>2000</td>
+					<td>p02</td>
+					<td>8,7</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>And finally the code to obtain above result</p>
+	<p>SELECT a.annee, a.id, a.taux<br>
+	FROM donnee AS a<br>
+	WHERE a.taux IN(<br>
+	SELECT TOP 5 b.taux<br>
+	FROM donnee b<br>
+	WHERE a.id = b.id<br>
+	ORDER BY b.taux DESC);</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>	

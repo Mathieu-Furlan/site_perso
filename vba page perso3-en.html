@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Third case: concatenate any number of rows into three columns.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I'm working with an extract file in Excel. It's basically multiple columns with several row data on each.</p></q>
+	<p><q>I would like to flatten it into 3 columns.</q></p>
+	<p>The code to achieve what is asked:</p>
+	<pre>
+	<code>
+	Sub flatten()
+
+	Dim i As Integer
+	Dim q As Integer
+	Dim a As Integer
+	Dim b As Integer
+	Dim u As Integer
+
+	a = Cells(Rows.Count, "A").End(xlUp).Row
+	b = Int(Cells(1, Columns.Count).End(xlToLeft).Column) / 3
+
+	Debug.Print (b)
+
+	For u = 1 To b - 1
+		For i = 1 To 3
+			For q = 1 To a
+        
+				Cells(a * u + q, i) = Cells(q, i + (u * 3))
+				Cells(q, i + (u * 3)).ClearContents
+        
+			Next q
+		Next i
+	Next u
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Seizième cas: cacher une ligne si une valeur définie et trouvée dans une colonne.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais masquer une ligne si la chaîne de charactères "work1" est trouvée dans une colonne.</q></p>
+	<p><q>C'est une feuille de travail interactive qui peut avoir plusieurs filtres appliqués en même temps.</q></p>
+	<p>Macro pour remplir la feuille excel de données aléatoires:</p>
+	<pre>
+	<code>
+	Sub populatecolumn()
+
+	Dim i As Integer
+
+	For i = 1 To 10
+    
+		Rows(i).Hidden = False
+		Cells(i, 6) = "Work" & Int((Rnd * 3) + 1)
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>Macro permettant d'apporter une solution:</p>
+	<pre>
+	<code>
+	Sub trouvermot()
+
+	Dim i As Integer
+
+	For i = 1 To Cells(Rows.Count, 6).End(xlUp).Row
+
+		If InStr(Cells(i, 6), "Work1") <> 0 Then
+			Rows(i).Hidden = True
+		End If
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

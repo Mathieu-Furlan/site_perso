@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Sixième cas: surligner des cellules sous condition.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais parcourir toutes les valeurs de la colonne"D", et si une valeur se termine par "A", la surligner.</q></p>
+	<p>Le code pour obtenir le résultat désiré:<p>
+	<pre>
+	<code>
+	Sub dern()
+
+	Dim x, y, z, i As Integer
+	Dim a, b, c As String
+
+	Randomize
+
+	Range("D:D").Interior.Pattern = xlNone
+
+	For i = 1 To 20
+
+	x = Int((Rnd * 3) + 1)
+	y = Int((Rnd * 3) + 1)
+	z = Int((Rnd * 3) + 1)
+
+	If x = 1 Then
+		a = "A"
+		ElseIf x = 2 Then
+			a = "B"
+			ElseIf x = 3 Then
+				a = "C"
+        
+	End If
+
+	If y = 1 Then
+		b = "A"
+		ElseIf y = 2 Then
+			b = "B"
+			ElseIf y = 3 Then
+				b = "C"
+        
+	End If
+
+	If z = 1 Then
+		c = "A"
+		ElseIf z = 2 Then
+			c = "B"
+			ElseIf z = 3 Then
+				c = "C"
+        
+	End If
+
+	Cells(i, 4) = a & b & c
+
+	Next i
+
+	For q = 1 To Cells(Rows.Count, "D").End(xlUp).Row
+    
+		If Cells(q, 4) Like "*A" Then
+			Cells(q, 4).Interior.Color = vbRed
+        
+		End If
+    
+	Next q
+    
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

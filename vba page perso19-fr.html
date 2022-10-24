@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Dix-neuvième cas: Faire pivoter des données ordonnées verticalement.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais faire passer des données d'un ordonnancement vertical à un état horizontal(chaque groupe sur une ligne).</q></p>
+	<p>Comment obtenir ce qui est demandé:</p>
+	<pre>
+	<code>
+	Sub grandeserie()
+
+	Dim x As Integer
+	Dim y As Integer
+	Dim i As Integer
+	Dim d As Integer
+	Dim q As Integer
+	Dim z As Integer
+	Dim arr() As Variant
+	Dim a As Integer
+	Dim t As Integer
+	Dim m As Integer
+	Dim n As Integer
+	Dim l As Integer
+
+
+	x = 1
+	y = 0
+	d = 1
+	a = 0
+
+	Cells(1, 6) = "Group"
+
+	For i = 1 To Cells(Rows.Count, 1).End(xlUp).Row
+
+		If Cells(i + 1, 1) = Cells(i, 1) Then
+			x = x + 1
+    
+		Else
+			ReDim Preserve arr(a)
+			Cells(d + 1, 6) = Cells(i + 1, 1)
+			d = d + 1
+			arr(a) = x
+			a = a + 1
+			x = 1
+			Debug.Print (a)
+		End If
+    
+	Next i
+
+	y = Application.Max(arr)
+	Debug.Print (y)
+
+
+	t = UBound(arr) - 1
+	Debug.Print (t)
+
+	For q = 1 To y
+		Cells(1, 6 + q) = "Amount" & q
+		Cells(1, 6 + y + q) = "Notes" & q
+	Next q
+
+	Cells(1, 6 + y + q) = "Name"
+
+	For z = 2 To d - 1
+		Cells(z, 6 + y + q) = "Group" & Cells(z, 6).Value
+	Next z
+
+	l = 1
+	For m = 1 To d - 2
+		For n = 1 To arr(m)
+			Cells(1 + m, 6 + n) = Cells(1 + l, 2)
+			Cells(1 + m, 6 + y + n) = Cells(1 + l, 3)
+			l = l + 1
+		Next n
+	Next m
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Huitième cas: colorer des formes sous condition.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais colorer des formes (cercles) en fonction de la valeur d'une cellule.</q></p>
+	<p>Code pour créer les objets:<p>
+	<pre>
+	<code>
+	Sub cercle()
+
+	Set myDoc = Worksheets("Feuil1")
+
+	With myDoc
+
+	.Shapes.AddShape msoShapeOval, 100, 100, 150, 150
+	.Shapes.AddShape msoShapeOval, 300, 100, 150, 150
+
+	.Shapes(1).Name = "Oval 1"
+	.Shapes(2).Name = "Oval 2"
+
+	End With
+
+	End Sub
+	</code>
+	</pre>
+	<p>Code pour générer des valeurs aléatoires:</p>
+	<pre>
+	<code>
+	Sub populatecells()
+
+	Randomize
+
+	Cells(3, 3) = Rnd
+	Cells(3, 6) = Rnd
+
+	End Sub
+	</code>
+	</pre>
+	<p>Code qui déclenche automatiquement le changement de couleur (à ajouter directement dans le code de la feuille excel):</p>
+	<pre>
+	<code>
+	Private Sub Worksheet_Change(ByVal Target As Range)
+
+	If Intersect(Target, Cells(3, 3)) Is Nothing Then GoTo Line2 Else GoTo Line1
+
+	Line1:
+	If IsNumeric(Target.Value) Then
+		If Target.Value &lt; 0.31 Then
+			Worksheets("Feuil1").Shapes("Oval 1").Fill.ForeColor.RGB = vbRed
+		ElseIf Target.Value &gt;= 0.31 And Target.Value &lt; 0.62999 Then
+			Worksheets("Feuil1").Shapes("Oval 1").Fill.ForeColor.RGB = vbYellow
+		ElseIf Target.Value &gt;= 0.62999 Then
+			Worksheets("Feuil1").Shapes("Oval 1").Fill.ForeColor.RGB = vbGreen
+		End If
+	End If
+
+	Line2:
+	If Not Intersect(Target, Cells(3, 6)) Is Nothing Then
+		If IsNumeric(Target.Value) Then
+			If Target.Value &lt; 0.31 Then
+				Worksheets("Feuil1").Shapes("Oval 2").Fill.ForeColor.RGB = vbRed
+			ElseIf Target.Value &gt;= 0.31 And Target.Value &lt; 0.62999 Then
+				Worksheets("Feuil1").Shapes("Oval 2").Fill.ForeColor.RGB = vbYellow
+			ElseIf Target.Value &gt;= 0.62999 Then
+				Worksheets("Feuil1").Shapes("Oval 2").Fill.ForeColor.RGB = vbGreen
+			End If
+		End If
+	Else: Exit Sub
+
+	End If
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

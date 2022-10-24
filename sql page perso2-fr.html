@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Deuxième cas: différents types de sommes</p>
+	<p>situation initiale:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">name</th>
+					<th scope="col">age</th>
+					<th scope="col">sal</th>
+					<th scope="col">month</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>A</td>
+					<td>21</td>
+					<td>100</td>
+					<td>JAN</td>
+				</tr>
+				<tr>
+					<td>B</td>
+					<td>22</td>
+					<td>150</td>
+					<td>FEB</td>
+				</tr>
+				<tr>
+					<td>C</td>
+					<td>21</td>
+					<td>200</td>
+					<td>SEP</td>
+				</tr>
+				<tr>
+					<td>D</td>
+					<td>22</td>
+					<td>100</td>
+					<td>OCT</td>
+				</tr>
+				<tr>
+					<td>EMP</td>
+					<td>21</td>
+					<td>150</td>
+					<td>DEC</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que l'on souhaite obtenir:</p>
+		<table>
+		<caption>Normal Sum</caption>
+			<thead>
+				<tr>
+					<th scope="col">name</th>
+					<th scope="col">age</th>
+					<th scope="col">sal</th>
+					<th scope="col">tsum</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>A</td>
+					<td>21</td>
+					<td>100</td>
+					<td>700</td>
+				</tr>
+				<tr>
+					<td>B</td>
+					<td>22</td>
+					<td>150</td>
+					<td>700</td>
+				</tr>
+				<tr>
+					<td>C</td>
+					<td>21</td>
+					<td>200</td>
+					<td>700</td>
+				</tr>
+				<tr>
+					<td>D</td>
+					<td>22</td>
+					<td>100</td>
+					<td>700</td>
+				</tr>
+				<tr>
+					<td>EMP</td>
+					<td>21</td>
+					<td>150</td>
+					<td>700</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Le code pour obtenir le résultat ci-dessus:</p>
+	<p>SELECT a.name, a.age, a.sal, b.tsum<br>
+	FROM donnee AS a, (SELECT Sum(sal) AS tsum FROM donnee)  AS b;</p>
+	<table>
+		<caption>Running Sum</caption>
+			<thead>
+				<tr>
+					<th scope="col">name</th>
+					<th scope="col">age</th>
+					<th scope="col">sal</th>
+					<th scope="col">total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>A</td>
+					<td>21</td>
+					<td>100</td>
+					<td>100</td>
+				</tr>
+				<tr>
+					<td>B</td>
+					<td>22</td>
+					<td>150</td>
+					<td>250</td>
+				</tr>
+				<tr>
+					<td>C</td>
+					<td>21</td>
+					<td>200</td>
+					<td>450</td>
+				</tr>
+				<tr>
+					<td>D</td>
+					<td>22</td>
+					<td>100</td>
+					<td>550</td>
+				</tr>
+				<tr>
+					<td>EMP</td>
+					<td>21</td>
+					<td>150</td>
+					<td>700</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Le code pour obtenir le résultat ci-dessus:</p>
+	<p>SELECT a.name, a.age, a.sal, (SELECT SUM(b.sal) FROM donnee b WHERE b.name &lt;= a.name) AS total<br>
+	FROM donnee AS a;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

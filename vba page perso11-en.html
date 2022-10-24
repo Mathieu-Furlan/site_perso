@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Eleventh case: adding a comment in a cell based on another cell's value.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I want to add a comment into comment section of a cell based on another cell's value.</q></p>
+	<p><q>If the other cell is empty, "Nothing" should be added as comment.</q></p>
+	<p>Code to be put at worksheet level to automate the process:</p>
+	<pre>
+	<code>
+	Private Sub Worksheet_Change(ByVal Target As Range)
+
+	If Not Cells(Target.Row, 2).Comment Is Nothing Then
+		Cells(Target.Row, 2).Comment.Delete
+	End If
+
+	If Target <> "" Then
+		Cells(Target.Row, 2).AddComment (Target)
+    
+	ElseIf Target = "" Then
+		Cells(Target.Row, 2).AddComment "Nothing"
+    
+	End If
+  
+	End Sub
+	</code>
+	</pre>
+	<p>Code to do what was asked:</p>
+	<pre>
+	<code>
+	Sub commentaire()
+
+	Dim a As Variant
+
+	a = Cells(2, 6)
+
+	If Not Cells(2, 2).Comment Is Nothing Then
+		Cells(2, 2).Comment.Delete
+	End If
+
+	If a <> "" Then
+		Cells(2, 2).AddComment (a)
+    
+	ElseIf a = "" Then
+		Cells(2, 2).AddComment "Nothing"
+    
+	End If
+  
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

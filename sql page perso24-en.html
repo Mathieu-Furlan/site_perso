@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Twenty-fourth case: inventory of status based on one column.</p>
+	<p>What we have:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">App No</th>
+					<th scope="col">Dept</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>123</td>
+					<td>IT</td>
+					<td>Pending</td>
+				</tr>
+				<tr>
+					<td>124</td>
+					<td>Sales</td>
+					<td>Closed</td>
+				</tr>
+				<tr>
+					<td>456</td>
+					<td>Sales</td>
+					<td>Declined</td>
+				</tr>
+				<tr>
+					<td>821</td>
+					<td>IT</td>
+					<td>Pending</td>
+				</tr>
+				<tr>
+					<td>221</td>
+					<td>IT</td>
+					<td>Closed</td>
+				</tr>
+				<tr>
+					<td>876</td>
+					<td>Sales</td>
+					<td>Pending</td>
+				</tr>
+				<tr>
+					<td>665</td>
+					<td>Sales</td>
+					<td>Closed</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>What we would like:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">dept</th>
+					<th scope="col">closed</th>
+					<th scope="col">pending</th>
+					<th scope="col">declined</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>IT</td>
+					<td>1</td>
+					<td>2</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>Sales</td>
+					<td>2</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>And the code to achieve above result:</p>
+	<p>SELECT dept, (SELECT Count(status) FROM donnee WHERE dept = a.dept AND status = "closed") AS closed, (SELECT Count(status) FROM donnee WHERE dept = a.dept AND status = "pending") AS pending, (SELECT Count(status) FROM donnee WHERE dept = a.dept AND status = "declined") AS declined<br>
+	FROM donnee AS a<br>
+	GROUP BY dept;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</table>

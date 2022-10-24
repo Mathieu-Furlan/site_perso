@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Vingtième cas: Remplir une colonne en fonction des valeurs dans une autre.</p>
+	<p>Ce que nous avons:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">suite</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>AK-11 HK-82,7</td>
+				</tr>
+				<tr>
+					<td>AK-11 HK-82,8</td>
+				</tr>
+				<tr>
+					<td>AK-11 HK-82,9</td>
+				</tr>
+				<tr>
+					<td>AK-11 HK-82,10</td>
+				</tr>
+				<tr>
+					<td>AK-11 HK-82,11</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Nous voudrions isoler le numéro à la fin de chaque chaîne de caractères.</p>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">expr1000</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>82,7</td>
+				</tr>
+				<tr>
+					<td>82,8</td>
+				</tr>
+				<tr>
+					<td>82,9</td>
+				</tr>
+				<tr>
+					<td>82,10</td>
+				</tr>
+				<tr>
+					<td>82,11</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>En utilisant le séparateur de décimales du système de l'utilisateur:</p>
+	<p>SELECT ROUND((CDbl(REPLACE(REPLACE(suite,"AK-","")," HK-",""))-int(CDbl(REPLACE(REPLACE(suite,"AK-","")," HK-",""))/100)*100),2)<br>
+	FROM donnee;</p>
+	<p>Forcer l'utilisation du point comme séparteur des décimales:</p>
+	<p>SELECT LTrim(RIGHT(REPLACE(REPLACE(REPLACE(suite,"AK-",""),"HK-",""),",","."),5))<br>
+	FROM donnee;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

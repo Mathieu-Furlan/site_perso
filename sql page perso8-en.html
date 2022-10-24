@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Eighth case: Return a value depending on a column's values</p>
+	<p>What we have:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">CREDIT_ID</th>
+					<th scope="col">FACIL_ID</th>
+					<th scope="col">SCORE_TYPE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>11111</td>
+					<td>23</td>
+					<td>G</td>
+				</tr>
+				<tr>
+					<td>11111</td>
+					<td>25</td>
+					<td>G</td>
+				</tr>
+				<tr>
+					<td>11111</td>
+					<td>26</td>
+					<td>G</td>
+				</tr>
+				<tr>
+					<td>11111</td>
+					<td>27</td>
+					<td>G</td>
+				</tr>
+				<tr>
+					<td>22222</td>
+					<td>67</td>
+					<td>G</td>
+				</tr>
+				<tr>
+					<td>22222</td>
+					<td>68</td>
+					<td>B</td>
+				</tr>
+				<tr>
+					<td>22222</td>
+					<td>69</td>
+					<td>B</td>
+				</tr>
+				<tr>
+					<td>22222</td>
+					<td>70</td>
+					<td>Z</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>We would like to display for each credit_id the score_type if it is the same for all lines with a defined credit_id.<br> Else NULL should be returned.</p>
+	<table>
+		<caption>Result</caption>
+			<thead>
+				<tr>
+					<th scope="col">CREDIT_ID</th>
+					<th scope="col">rand</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>11111</td>
+					<td>G</td>
+				</tr>
+				<tr>
+					<td>22222</td>
+					<td>NULL</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Below is the code to obtain such result:</p>
+	<p>SELECT b.CREDIT_ID, IIf(Scoretype&lt;=1,SCORE_TYPE,"NULL") AS rand<br>
+	FROM (SELECT a.CREDIT_ID, Count(a.SCORE_TYPE) AS Scoretype FROM (SELECT DISTINCT CREDIT_ID, SCORE_TYPE FROM donnee)  AS a GROUP BY a.CREDIT_ID ORDER BY a.CREDIT_ID)  AS c INNER JOIN donnee AS b ON c.CREDIT_ID = b.CREDIT_ID<br>
+	GROUP BY b.CREDIT_ID, IIf(Scoretype&lt;=1,SCORE_TYPE,"NULL");</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Neuvième cas: Selectionner seulement la valeur la plus récente pour chaque identfiant.</p>
+	<p>Situation de départ:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">ean</th>
+					<th scope="col">price</th>
+					<th scope="col">dtmode</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>155105</td>
+					<td>2,19</td>
+					<td>22/06/2022 03:03:25</td>
+				</tr>
+				<tr>
+					<td>155105</td>
+					<td>-0,01</td>
+					<td>28/06/2022 02:27:15</td>
+				</tr>
+				<tr>
+					<td>155105</td>
+					<td>1,45</td>
+					<td>28/06/2022 15:11:35</td>
+				</tr>
+				<tr>
+					<td>114695</td>
+					<td>-0,01</td>
+					<td>28/06/2022 02:27:15</td>
+				</tr>
+				<tr>
+					<td>114695</td>
+					<td>5,99</td>
+					<td>28/06/2022 15:11:27</td>
+				</tr>
+				<tr>
+					<td>213786</td>
+					<td>-0,01</td>
+					<td>28/06/2022 02:27:15</td>
+				</tr>
+				<tr>
+					<td>213786</td>
+					<td>2,39</td>
+					<td>28/06/2022 15:11:32</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous voulons:</p>
+		<table>
+		<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">ean</th>
+					<th scope="col">price</th>
+					<th scope="col">dtmode</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>114695</td>
+					<td>5,99</td>
+					<td>28/06/2022 15:11:27</td>
+				</tr>
+				<tr>
+					<td>155105</td>
+					<td>1,45</td>
+					<td>28/06/2022 15:11:35</td>
+				</tr>
+				<tr>
+					<td>213786</td>
+					<td>2,39</td>
+					<td>28/06/2022 15:11:32</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ci-dessous le code pour obtenir le résultat:</p>
+	<p>SELECT ean, price, dtmod<br>
+	FROM donnee AS a<br>
+	WHERE dtmod = (SELECT Max(dtmod) FROM donnee WHERE ean = a.ean GROUP BY ean)<br>
+	ORDER BY ean;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>	

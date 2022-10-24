@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Twenty-second case: Appliying formula to each cells in column.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I have an excel file with a column full of numbers (occasionally there will be some text or a blank cell).</q></p>
+	<p><q>I want to apply a function to that cell that does the following;</q></p>
+	<p><q>If the cell value is blank or text do nothing.</q></p>
+	<p><q>If the value is less than 8 then make it 8, if it is greater than or equal to 8 do nothing.</q></p>
+	<p><q>I wish to overwrite the values in the cell with the new values as opposed to preservering them.</q></p>
+	<p>First we create the function:</p>
+	<pre>
+	<code>
+	Function plusquehuit(plage As Range) As Variant
+
+    If IsNumeric(plage) And plage &lt;&gt; "" Then
+        If plage &lt; 8 Then
+            plusquehuit = 8
+        Else
+            plusquehuit = plage
+        End If
+    ElseIf Not IsNumeric(plage) Then
+        plusquehuit = plage
+    Else
+        plusquehuit = ""
+    End If
+	End Function
+	</code>
+	</pre>
+	<p>Then the subroutine:</p>
+	<pre>
+	<code>
+	Sub remplacerhuit()
+
+	Dim i As Integer
+
+	For i = 1 To Cells(Rows.Count, 1).End(xlUp).Row
+
+		Cells(i, 2).Value = plusquehuit(Cells(i, 1))
+		Cells(i, 1) = Cells(i, 2)
+		Cells(i, 2).ClearContents
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions:</h1>
+	<p>Dix-septième cas: additionner en fonction des valeurs et des colonnes.</p>
+	<p>Les tables dont nous disposons:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">subjs</th>
+					<th scope="col">weight1</th>
+					<th scope="col">weight2</th>
+					<th scope="col">month</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2215566-002B</td>
+					<td>4,95</td>
+					<td>1,317</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2215566-002B</td>
+					<td>4,95</td>
+					<td>2,54</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2215567-001A</td>
+					<td>7,44</td>
+					<td>2,451</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2215567-001A</td>
+					<td>7,44</td>
+					<td>7,44</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2216084-001A</td>
+					<td>7,23</td>
+					<td>3,897</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2216085-001A</td>
+					<td>7,44</td>
+					<td>3,774</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2214911-001A</td>
+					<td>6,56</td>
+					<td>1,104</td>
+					<td>July</td>
+				</tr>
+				<tr>
+					<td>2214911-001A</td>
+					<td>6,56</td>
+					<td>1,42</td>
+					<td>May</td>
+				</tr>
+				<tr>
+					<td>2214911-001A</td>
+					<td>6,56</td>
+					<td>1,83</td>
+					<td>May</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous souhaitons est d'additionner les valeurs de la colonne weight2 si les valeurs de subjs et month sont égales.<br>
+	De plus si la valeur cumulée de weight2 dépasse la valeur unique de weight1 la plus haute valeur individuelle de weight2 est selectionnée.</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">subjs</th>
+					<th scope="col">weight1</th>
+					<th scope="col">pweight2</th>
+					<th scope="col">month</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2214911-001A</td>
+					<td>6,56</td>
+					<td>3,25</td>
+					<td>May</td>
+				</tr>
+				<tr>
+					<td>2215566-002B</td>
+					<td>4,95</td>
+					<td>3,857</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2215567-001A</td>
+					<td>7,44</td>
+					<td>7,44</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2216084-001A</td>
+					<td>7,23</td>
+					<td>3,897</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2216085-001A</td>
+					<td>7,44</td>
+					<td>3,774</td>
+					<td>June</td>
+				</tr>
+				<tr>
+					<td>2214911-001A</td>
+					<td>6,56</td>
+					<td>1,104</td>
+					<td>July</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>La requête pour arriver au résultat ci-dessus:</p>
+	<p>SELECT subjs, weight1, IIF(Sum(weight2) > weight1, (SELECT Max(weight2) FROM donnee WHERE a.subjs = subjs AND a.month = month), Sum(weight2)) AS pweight2, month<br>
+	FROM donnee AS a<br>
+	GROUP BY subjs, weight1, month<br>
+	ORDER BY month DESC;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Dix-neuvième cas: afficher des lignes en fonctions de conditions.</p>
+	<p>Situation de départ:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">subjs</th>
+					<th scope="col">issuedweight</th>
+					<th scope="col">defecttype</th>
+					<th scope="col">defectweight</th>
+					<th scope="col">month</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2121830/1-001A</td>
+					<td>7,58</td>
+					<td>Crack</td>
+					<td>6,43</td>
+					<td>December</td>
+				</tr>
+				<tr>
+					<td>2121830/1-001A</td>
+					<td>7,58</td>
+					<td>Crack</td>
+					<td>6,43</td>
+					<td>January</td>
+				</tr>
+				<tr>
+					<td>2121830/1-001A</td>
+					<td>7,58</td>
+					<td>Clamping Crack</td>
+					<td>1,134</td>
+					<td>January</td>
+				</tr>
+				<tr>
+					<td>2122032/2-001A</td>
+					<td>4,52</td>
+					<td>Crack</td>
+					<td>4,5</td>
+					<td>January</td>
+				</tr>
+				<tr>
+					<td>2122032/2-001A</td>
+					<td>4,52</td>
+					<td>Clamping Crack</td>
+					<td>2,92</td>
+					<td>January</td>
+				</tr>
+				<tr>
+					<td>2121880/1-001A</td>
+					<td>7,78</td>
+					<td>Crack</td>
+					<td>7,78</td>
+					<td>February</td>
+				</tr>
+				<tr>
+					<td>2121880/1-001A</td>
+					<td>7,78</td>
+					<td>Crack</td>
+					<td>7,78</td>
+					<td>January</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous voulons et de retourner les lignes ou subjs et months sont égaux mais defecttypes est différent.</p>
+	<p>La somme de defectweight pour les lignes en question devrait être supèrieure à la valeur de issuedweight en fonction des subjs:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">subjs</th>
+					<th scope="col">issuedweight</th>
+					<th scope="col">defecttype</th>
+					<th scope="col">defectweight</th>
+					<th scope="col">month</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2122032/2-001A</td>
+					<td>4,52</td>
+					<td>Clamping Crack</td>
+					<td>2,92</td>
+					<td>January</td>
+				</tr>
+				<tr>
+					<td>2122032/2-001A</td>
+					<td>4,52</td>
+					<td>Crack</td>
+					<td>4,5</td>
+					<td>January</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>La requête utilisée:</p>
+	<p>SELECT a.*<br>
+	FROM donnee AS a, donnee AS b, (SELECT c.subjs, c.issuedweight, Sum(c.defectweight) FROM donnee AS c, donnee AS d WHERE c.subjs = d.subjs AND c.month = d.month AND c.defecttype <> d.defecttype GROUP BY c.subjs, c.issuedweight HAVING Sum(c.defectweight) > c.issuedweight)  AS c<br>
+	WHERE a.subjs = b.subjs AND a.month = b.month AND a.defecttype <> b.defecttype AND a.subjs IN(c.subjs);</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

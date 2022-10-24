@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Sixième cas: combiner deux colonnes en fonction des données quelles contiennent</p>
+	<p>Situation de départ:<p>
+		<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">Article</th>
+					<th scope="col">Desc</th>
+					<th scope="col">UM</th>
+					<th scope="col">Value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>item1</td>
+					<td>Flower</td>
+					<td>PC</td>
+					<td>5001</td>
+				</tr>
+				<tr>
+					<td>item2</td>
+					<td>Paper</td>
+					<td>PC</td>
+					<td>6001</td>
+				</tr>
+				<tr>
+					<td>item2</td>
+					<td>Paper</td>
+					<td>CT</td>
+					<td>6002</td>
+				</tr>
+				<tr>
+					<td>item3</td>
+					<td>Pen</td>
+					<td>CT</td>
+					<td>7001</td>
+				</tr>
+				<tr>
+					<td>item4</td>
+					<td>Eraser</td>
+					<td>PC</td>
+					<td>8001</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous voulons obtenir:</p>
+	<table>
+		<caption>Result</caption>
+			<thead>
+				<tr>
+					<th scope="col">Article</th>
+					<th scope="col">Desc</th>
+					<th scope="col">Value PC</th>
+					<th scope="col">ValueCT</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>item1</td>
+					<td>Flower</td>
+					<td>5001</td>
+					<td>NULL</td>
+				</tr>
+				<tr>
+					<td>item2</td>
+					<td>Paper</td>
+					<td>6001</td>
+					<td>NULL</td>
+				</tr>
+				<tr>
+					<td>item2</td>
+					<td>Paper</td>
+					<td>NULL</td>
+					<td>6002</td>
+				</tr>
+				<tr>
+					<td>item3</td>
+					<td>Pen</td>
+					<td>NULL</td>
+					<td>7001</td>
+				</tr>
+				<tr>
+					<td>item4</td>
+					<td>Eraser</td>
+					<td>8001</td>
+					<td>NULL</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Enfin le code pour obtenir le résultat ci-dessus:</p>
+	<p>SELECT Article, Desc, IIf(UM="PC",Value,"NULL") AS [Value PC], IIf(UM="CT",Value,"NULL") AS ValueCT<br>
+	FROM donnee;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

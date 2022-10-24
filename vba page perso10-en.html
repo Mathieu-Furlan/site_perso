@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Tenth case: create a tally column.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I would like to count how many times a value is in the column "furniture", however this column may sometimes be in a different place.</p></q>
+	<p><q>So I'd have to refer to the name instead of column number.</q></p>
+	<p><q>Eventually create a new column where it is stated how many times that furniture appears.</p></q>
+	<p>Code to randomly generate data:<p>
+	<pre>
+	<code>
+	Sub PopulateFurniture()
+
+	Dim i As Integer
+	Dim a As Byte
+
+	For i = 2 To 30
+		a = Int((Rnd * 6) + 1)
+			If a = 1 Then
+				Cells(i, 2) = "chair"
+			ElseIf a = 2 Then
+				Cells(i, 2) = "table"
+			ElseIf a = 3 Then
+				Cells(i, 2) = "lamp"
+			ElseIf a = 4 Then
+				Cells(i, 2) = "sofa"
+			ElseIf a = 5 Then
+				Cells(i, 2) = "trunk"
+			ElseIf a = 6 Then
+				Cells(i, 2) = ""
+			End If
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>How to solve the problem:</p>
+	<pre>
+	<code>
+	Sub comptermeuble()
+
+	Dim d
+	Dim i As Integer
+	Dim q As Integer
+
+	Set d = CreateObject("Scripting.Dictionary")
+
+	For i = 2 To Cells(Rows.Count, 2).End(xlUp).Row
+		If Not d.Exists(Cells(i, 2).Value) And Not IsEmpty(Cells(i, 2)) Then
+			d.Add (Cells(i, 2).Value), Application.CountIf(Columns(2), Cells(i, 2))
+    
+		End If
+	Next i
+
+	For q = 2 To Cells(Rows.Count, 2).End(xlUp).Row
+
+		Cells(q, 3) = d(Cells(q, 2).Value)
+
+	Next q
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Sixteenth case: hide row if value is found in column.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I want to hide rows if the particular string "work1" is found in a column.</q></p>
+	<p><q>It is an interactive table so it can have different filters applied at a time.</q></p>
+	<p>Code to populate the worksheet:</p>
+	<pre>
+	<code>
+	Sub populatecolumn()
+
+	Dim i As Integer
+
+	For i = 1 To 10
+    
+		Rows(i).Hidden = False
+		Cells(i, 6) = "Work" & Int((Rnd * 3) + 1)
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>Code to solve the case</p>
+	<pre>
+	<code>
+	Sub trouvermot()
+
+	Dim i As Integer
+
+	For i = 1 To Cells(Rows.Count, 6).End(xlUp).Row
+
+		If InStr(Cells(i, 6), "Work1") <> 0 Then
+			Rows(i).Hidden = True
+		End If
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

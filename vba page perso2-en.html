@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Second case: how to replace blank or 0 values in column depending on value in another column.</p>
+	<p>Summary of the problem:</p>
+	<p><q>There is a list of numbers and next to it a letter to determine what category it's in, how would I be able to change blank or 0 values with a formula depending on the category?</q></p>
+	<p><q>In this case there's a list of price and weight for product a, b and c. The average prices for the products are already known and are in a table on the same excel sheet.</q></p>
+	<p><q>To fill in the 0 data with an estimate of how much the product would've weighted, what would the code look like?</q></p>
+	<p>The code (which populate columns randomly for the purpose of testing) to do what is asked:</p>
+	<pre>
+	<code>
+	Sub letters()
+
+	Dim i As Integer
+	Dim val As Integer
+	Dim j As Integer
+
+	Randomize
+
+	For i = 1 To 100
+		Cells(1 + i, 1) = Application.Round(Rnd * 10000, 0)
+		Cells(1 + i, 2) = Application.Round(Rnd * 10000, 0)
+     
+	Next i
+
+	For q = 1 To 100
+
+		val = Int((3 * Rnd) + 1)
+    
+		If val = 1 Then
+			Cells(1 + q, 3) = "a"
+        
+		ElseIf val = 2 Then
+			Cells(1 + q, 3) = "b"
+        
+		ElseIf val = 3 Then
+			Cells(1 + q, 3) = "c"
+        
+		End If
+    
+	Next q
+        
+	For j = 1 To Range("A2", Range("A2").End(xlDown)).Rows.Count
+
+	Debug.Print (j)
+
+		If Cells(1 + j, 1) &lt; 1000 Then
+			If Cells(1 + j, 3) = "a" Then
+				Cells(1 + j, 1) = 1200
+        
+			ElseIf Cells(1 + j, 3) = "b" Then
+				Cells(1 + j, 1) = 1500
+            
+			ElseIf Cells(1 + j, 3) = "c" Then
+				Cells(1 + j, 1) = 1800
+            
+			End If
+		End If
+    
+	Next j
+
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

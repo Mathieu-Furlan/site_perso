@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Dix-huitième cas: trouver la cellule qui contient la date d'aujourd'hui.</p>
+	<p>Résumé du problème:</p>
+	<p><q>Je voudrais localiser la cellule qui contient la date d'aujourd'hui.</q></p>
+	<p><q>Mettons que la date d'aujourd'hui soit le 22 avril 2022, je voudrais une macro qui retourne un entier indiquent la position de la cellule dans la ligne.</q></p>
+	<p>Créer des dates aléatoires:</p>
+	<pre>
+	<code>
+	Sub populatedates()
+
+	Dim i As Integer
+
+	Range("A1", Columns(Cells(1, Columns.Count).End(xlToLeft).Column)).Font.Color = vbBlack
+
+	For i = 1 To 30
+
+		Cells(1, i) = (Date - 3) + i
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>Obtenir ce qui est demandé:</p>
+	<pre>
+	<code>
+	Sub trouverdate()
+
+	Dim d As Range
+
+	Set d = Range("A1", Columns(Cells(1, Columns.Count).End(xlToLeft).Column)).Find(Date, LookIn:=xlValues)
+
+	If Not d Is Nothing Then
+		d.Font.Color = vbRed
+	Else
+		MsgBox "Date not found"
+    
+	End If
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

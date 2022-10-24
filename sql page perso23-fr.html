@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Vingt-troisième cas: additionner sous conditions.</p>
+	<p>Ce que nous avons:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">Line_num</th>
+					<th scope="col">Line_typ</th>
+					<th scope="col">Cost</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1000</td>
+					<td>6</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>2000</td>
+					<td>7</td>
+					<td>5000</td>
+				</tr>
+				<tr>
+					<td>3000</td>
+					<td>7</td>
+					<td>3000</td>
+				</tr>
+				<tr>
+					<td>4000</td>
+					<td>7</td>
+					<td>2000</td>
+				</tr>
+				<tr>
+					<td>5000</td>
+					<td>6</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>6000</td>
+					<td>9</td>
+					<td>3000</td>
+				</tr>
+				<tr>
+					<td>7000</td>
+					<td>7</td>
+					<td>2000</td>
+				</tr>
+				<tr>
+					<td>8000</td>
+					<td>1</td>
+					<td>2000</td>
+				</tr>
+				<tr>
+					<td>9000</td>
+					<td>3</td>
+					<td>1000</td>
+				</tr>
+				<tr>
+					<td>10000</td>
+					<td>1</td>
+					<td>1000</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Nous voudrions pour chaque ligne où Line_typ est égal à 1 ou 6, additionner les valeurs de cost pour toutes les lignes suivantes jusqu'à rencontrer une ligne dont le type est 1 où 6:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">Line_num</th>
+					<th scope="col">Line_typ</th>
+					<th scope="col">New_cost</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1000</td>
+					<td>6</td>
+					<td>10000</td>
+				</tr>
+				<tr>
+					<td>5000</td>
+					<td>6</td>
+					<td>5000</td>
+				</tr>
+				<tr>
+					<td>8000</td>
+					<td>1</td>
+					<td>3000</td>
+				</tr>
+				<tr>
+					<td>10000</td>
+					<td>1</td>
+					<td>1000</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>La requête qui permet d'obtenir le résultat ci-dessus:</p>
+	<p>SELECT line_num, line_typ, IIF(line_typ IN(1, 6), (SELECT Sum(cost) FROM donnee WHERE line_num = a.line_num AND line_num = (SELECT Max(line_num) FROM donnee WHERE line_typ IN(6, 1)AND line_num = a.line_num) OR line_num >= a.line_num AND line_num < (SELECT Min(line_num) FROM donnee WHERE line_typ IN(6, 1) AND line_num > a.line_num)),"") AS New_cost<br>
+	FROM donnee AS a<br>
+	WHERE line_typ In (1,6);</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Seventeenth case: find highest value in a column.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I am trying to find out which row has the highest number in column "A"</q></p>
+	<p>First the code to create random data:</p>
+	<pre>
+	<code>
+	Sub populatecolumn()
+
+	Dim i As Integer
+
+	Randomize
+
+	For i = 1 To 30
+
+		Cells(i, 1) = Int((Rnd * 500) + 1)
+    
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>Below is our solution:</p>
+	<pre>
+	<code>
+	Sub trouverplusgrand()
+
+	Dim x As Double
+	Dim i As Integer
+
+	x = Application.Max(Range("A:A"))
+
+	For i = 0 To ActiveSheet.UsedRange.Rows.Count
+
+		If Range("A1").Offset(i, 0) = x Then
+			MsgBox "Maximum value is in row " & i + 1, vbInformation
+			Exit For
+		End If
+	Next
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Vingt-et-unième cas: mettre à jour les lignes en fonction de conditions.</p>
+	<p>Tables de départ:<p>
+	<table>
+	<caption>donnea</caption>
+			<thead>
+				<tr>
+					<th scope="col">specs</th>
+					<th scope="col">brand</th>
+					<th scope="col">category</th>
+					<th scope="col">start_date</th>
+					<th scope="col">end_date</th>
+					<th scope="col">signal</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Xy-eee2</td>
+					<td>mercury</td>
+					<td>alpha</td>
+					<td>05/12/2021</td>
+					<td>16/12/2021</td>
+					<td>NULL</td>
+				</tr>
+				<tr>
+					<td>Xd-FFF21</td>
+					<td>venus</td>
+					<td>beta</td>
+					<td>20/03/2021</td>
+					<td>25/04/2021</td>
+					<td>NULL</td>
+				</tr>
+			</tbody>
+	</table><br>
+	<table>
+	<caption>donneb</caption>
+			<thead>
+				<tr>
+					<th scope="col">brand</th>
+					<th scope="col">category</th>
+					<th scope="col">start_date</th>
+					<th scope="col">end_date</th>
+					<th scope="col">signal</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>mercury</td>
+					<td>alpha</td>
+					<td>12/12/2021</td>
+					<td>15/12/2021</td>
+					<td>action1</td>
+				</tr>
+				<tr>
+					<td>venus</td>
+					<td>beta</td>
+					<td>22/03/2021</td>
+					<td>20/04/2021</td>
+					<td>action2</td>
+				</tr>
+				<tr>
+					<td>mercury</td>
+					<td>alpha</td>
+					<td>09/12/2021</td>
+					<td>20/12/2021</td>
+					<td>action3</td>
+				</tr>
+				<tr>
+					<td>mercury</td>
+					<td>alpha</td>
+					<td>06/12/2021</td>
+					<td>17/12/2021</td>
+					<td>action4</td>
+				</tr>
+				<tr>
+					<td>venus</td>
+					<td>beta</td>
+					<td>23/03/2021</td>
+					<td>28/04/2021</td>
+					<td>action5</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Nous voudrions mettre à jour la ligne signal de la table donneea avec la valeur contenue dans la table donneeb.<br>
+	Les conditions sont que brand et category soient égaux et que start_date de donneea soit comprise dans un interval de plus ou moins cinq jours par rapport à start_date de donneeb.<br>
+	La valeur end_date de donneea doit également être contenue dans un interval de plus ou moins cinq jours par rapport à la end_date de donneeb:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">specs</th>
+					<th scope="col">brand</th>
+					<th scope="col">category</th>
+					<th scope="col">start_date</th>
+					<th scope="col">end_date</th>
+					<th scope="col">signal</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Xy-eee2</td>
+					<td>mercury</td>
+					<td>alpha</td>
+					<td>05/12/2021</td>
+					<td>16/12/2021</td>
+					<td>action4</td>
+				</tr>
+				<tr>
+					<td>Xd-FFF21</td>
+					<td>venus</td>
+					<td>beta</td>
+					<td>20/03/2021</td>
+					<td>25/04/2021</td>
+					<td>action5</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>La reuête permettant d'arriver au résultat:</p>
+	<p>SELECT a.specs, a.brand, a.category, a.start_date, a.end_date, b.signal<br>
+	FROM donneea AS a, donneeb AS b<br>
+	WHERE a.brand = b.brand AND a.category = b.category AND abs(a.start_date - b.start_date) = (SELECT Min(abs(donneea.start_date - donneeb.start_date)) FROM donneea, donneeb WHERE donneea.brand = a.brand AND donneeb.brand = b.brand AND donneeb.start_date BETWEEN dateadd("d", -5, donneea.start_date) AND dateadd("d", 5, donneea.start_date) AND donneeb.end_date - donneeb.start_date = donneea.end_date - donneea.start_date);</p>
+	<p>Méthode secondaire avec des déclarations conditionnelles:</p>
+	<p>SELECT a.specs, a.brand, a.category, a.start_date, a.end_date, IIF(b.end_date - b.start_date = a.end_date - a.start_date AND b.start_date BETWEEN dateadd("d", -5, a.start_date) AND dateadd("d", 5, a.start_date), b.signal, "null") AS defsignal<br>
+	FROM donneea AS a, donneeb AS b<br>
+	WHERE a.brand = b.brand AND a.category = b.category AND abs(a.start_date - b.start_date) = (SELECT Min(abs(donneea.start_date - donneeb.start_date)) FROM donneea, donneeb WHERE donneea.brand = a.brand AND donneeb.brand = b.brand AND donneeb.start_date BETWEEN dateadd("d", -5, donneea.start_date) AND dateadd("d", 5, donneea.start_date) AND donneeb.end_date - donneeb.start_date = donneea.end_date - donneea.start_date);</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

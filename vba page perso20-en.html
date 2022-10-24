@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Twentieth case: Sum if dates are matching.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I am trying to sum values until the end of a column, if dates in columns "E" match the ones in column "A".</q></p>
+	<p>How to attain expected result:</p>
+	<pre>
+	<code>
+	Sub sommesi()
+
+	Dim i As Integer
+	Dim r As Date
+
+
+	For i = 1 To Cells(Rows.Count, 5).End(xlUp).Row
+    
+		r = Cells(i, 5)
+		Cells(i, 6) = Application.SumIf(Range("A:A"), r, Range("B:B"))
+    
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

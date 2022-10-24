@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Quatrième cas: additionner les valeurs quand les noms sont identiques</p>
+	<p>Situation initiale:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">nom</th>
+					<th scope="col">valeur</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>German</td>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>French</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>FrenchSecond</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>English</td>
+					<td>2</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous souhaiterions obtenir:</p>
+	<table>
+		<caption>Result</caption>
+			<thead>
+				<tr>
+					<th scope="col">nom</th>
+					<th scope="col">valeur</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>English</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>French</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>German</td>
+					<td>4</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Le code pour obtnir le résultat ci-dessus:</p>
+	<p>SELECT IIf(nom Like "*Second","French",nom) AS nomdef, Sum(valeur) AS somme<br>
+	FROM donnee<br>
+	GROUP BY IIf(nom Like "*Second","French",nom);</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Cinquième cas: Selectionner la valeur la plus récente</p>
+	<p>Situation initiale:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">StartDate</th>
+					<th scope="col">ClientID</th>
+					<th scope="col">Value</th>
+					<th scope="col">UpdatedDate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>01/10/2022</td>
+					<td>101</td>
+					<td>100</td>
+					<td>01/10/2022</td>
+				</tr>
+				<tr>
+					<td>01/10/2022</td>
+					<td>101</td>
+					<td>200</td>
+					<td>11/10/2022</td>
+				</tr>
+				<tr>
+					<td>01/10/2022</td>
+					<td>101</td>
+					<td>300</td>
+					<td>20/10/2022</td>
+				</tr>
+				<tr>
+					<td>01/10/2022</td>
+					<td>102</td>
+					<td>200</td>
+					<td>11/10/2022</td>
+				</tr>
+				<tr>
+					<td>01/10/2022</td>
+					<td>102</td>
+					<td>300</td>
+					<td>20/10/2022</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous voulons obtenir:</p>
+	<table>
+		<caption>Result</caption>
+			<thead>
+				<tr>
+					<th scope="col">StartDate</th>
+					<th scope="col">ClientID</th>
+					<th scope="col">Value</th>
+					<th scope="col">UpdatedDate</th>
+					<th scope="col">outdated</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>01/10/2022</td>
+					<td>101</td>
+					<td>100</td>
+					<td>01/10/2022</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>01/10/2022</td>
+					<td>101</td>
+					<td>200</td>
+					<td>11/10/2022</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>01/10/2022</td>
+					<td>101</td>
+					<td>300</td>
+					<td>20/10/2022</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>01/10/2022</td>
+					<td>102</td>
+					<td>200</td>
+					<td>11/10/2022</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>01/10/2022</td>
+					<td>102</td>
+					<td>300</td>
+					<td>20/10/2022</td>
+					<td>1</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Le code pour arriver au résultat ci-dessus:</p>
+	<p>SELECT a.*, IIF(a.UpdatedDate &lt; (SELECT Max(b.UpdatedDate) FROM donnee b WHERE a.CLientID = b.CLientID GROUP BY CLientID), 0, 1) AS outdated<br>
+	FROM donnee AS a;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

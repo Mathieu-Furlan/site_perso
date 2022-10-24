@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Fifteenth case: Fetch rows for which value nil for the first time by id</p>
+	<p>What we have:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">rowID</th>
+					<th scope="col">horseID</th>
+					<th scope="col">valueYear</th>
+					<th scope="col">valueMonth</th>
+					<th scope="col">value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>1</td>
+					<td>1990</td>
+					<td>7</td>
+					<td>1000</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>1</td>
+					<td>1991</td>
+					<td>1</td>
+					<td>900</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>1</td>
+					<td>1992</td>
+					<td>2</td>
+					<td>800</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>1</td>
+					<td>1993</td>
+					<td>4</td>
+					<td>700</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>1</td>
+					<td>1993</td>
+					<td>7</td>
+					<td>690</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>1</td>
+					<td>1995</td>
+					<td>3</td>
+					<td>500</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>1</td>
+					<td>1995</td>
+					<td>7</td>
+					<td>470</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>1</td>
+					<td>1997</td>
+					<td>8</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>1</td>
+					<td>1997</td>
+					<td>8</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>1</td>
+					<td>1998</td>
+					<td>2</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>10</td>
+					<td>1</td>
+					<td>1999</td>
+					<td>3</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>11</td>
+					<td>1</td>
+					<td>2000</td>
+					<td>9</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>12</td>
+					<td>2</td>
+					<td>1990</td>
+					<td>3</td>
+					<td>900</td>
+				</tr>
+				<tr>
+					<td>13</td>
+					<td>2</td>
+					<td>1991</td>
+					<td>1</td>
+					<td>750</td>
+				</tr>
+				<tr>
+					<td>14</td>
+					<td>2</td>
+					<td>1992</td>
+					<td>7</td>
+					<td>700</td>
+				</tr>
+				<tr>
+					<td>15</td>
+					<td>2</td>
+					<td>1993</td>
+					<td>3</td>
+					<td>600</td>
+				</tr>
+				<tr>
+					<td>16</td>
+					<td>2</td>
+					<td>1993</td>
+					<td>4</td>
+					<td>590</td>
+				</tr>
+				<tr>
+					<td>17</td>
+					<td>2</td>
+					<td>1995</td>
+					<td>3</td>
+					<td>300</td>
+				</tr>
+				<tr>
+					<td>18</td>
+					<td>2</td>
+					<td>1995</td>
+					<td>9</td>
+					<td>170</td>
+				</tr>
+				<tr>
+					<td>19</td>
+					<td>2</td>
+					<td>1997</td>
+					<td>5</td>
+					<td>50</td>
+				</tr>
+				<tr>
+					<td>20</td>
+					<td>2</td>
+					<td>1998</td>
+					<td>6</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>21</td>
+					<td>2</td>
+					<td>1999</td>
+					<td>4</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>22</td>
+					<td>2</td>
+					<td>2000</td>
+					<td>2</td>
+					<td>0</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>What we would like to achieve:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">rowID</th>
+					<th scope="col">horseID</th>
+					<th scope="col">valueYear</th>
+					<th scope="col">valueMonth</th>
+					<th scope="col">value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>8</td>
+					<td>1</td>
+					<td>1997</td>
+					<td>8</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>20</td>
+					<td>2</td>
+					<td>1998</td>
+					<td>6</td>
+					<td>0</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>And finally the code to obtain above result</p>
+	<p>SELECT *<br>
+	FROM donnee AS a<br>
+	WHERE value = 0 AND valueyear IN (SELECT Min(valueyear) FROM donnee WHERE value = 0 AND horseid = a.horseid);</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

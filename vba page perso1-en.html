@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>First case: delete row if value is in list, looping through list.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I have two tables. One table is called DRData, other table is CheckData. EANCODE is Column J for DRData, and Column A for Checkdata.</q></p>
+	<p><q>I want to check whether CheckData.EANCODE is present in DRData.EANCODE. If so; delete that row from CheckData.</q></p>
+	<p><q>When the EANCODE is not present, I want to hop over a row to check that code. I want to end with a list in CheckData where all the EANCODE values that are not in DRData are shown.</q></p>
+	<p>The code (which generate random numbers for the purpose of testing) to do what is asked:</p>
+	<pre>
+	<code>
+	Sub ean()
+
+	Dim j As Integer
+	Dim l As Integer
+	Dim i As Integer
+	Dim q As Integer
+	Dim x As Long
+	Dim u As Integer
+
+	Randomize
+
+	For j = 1 To 100
+
+		Worksheets("DRData").Cells(j, 2) = Application.Round(Rnd * 100, 0)
+    
+	Next j
+
+	For l = 1 To 100
+
+		Worksheets("CheckData").Cells(l, 5) = Application.Round(Rnd * 100, 0)
+    
+	Next l
+
+
+	For i = 1 To 100
+
+		x = Worksheets("CheckData").Cells(i, 5)
+    
+		For q = 1 To 100
+    
+			If Worksheets("DRData").Cells(q, 2) = x Then Worksheets("CheckData").Cells(i, 5) = ""
+        
+		Next q
+    
+	Next i
+
+	For u = i To 1 Step -1
+
+		If IsEmpty(Worksheets("CheckData").Cells(u, 5)) Then Worksheets("CheckData").Rows(u).Delete
+    
+	Next u
+    
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

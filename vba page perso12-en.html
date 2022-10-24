@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Twelfth case: selecting a fixed number of values in column.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I have a table with a large amount of information, how do I select just the last month worth?</q></p>
+	<p><q>(i.e. just the last 31st cells in the column?)</q></p>
+	<p>Code to randomly create date:</p>
+	<pre>
+	<code>
+	Sub CreerDates()
+
+	Dim i As Integer
+	Dim mois
+	Dim jour
+
+	Randomize
+	For i = 1 To 40
+
+	mois = Int((Rnd * 12) + 1)
+	jour = Int((Rnd * 31) + 1)
+
+	If mois &lt; 10 Then
+		mois = 0 & mois
+	End If
+
+	If jour &lt; 10 Then
+		jour = 0 & jour
+	End If
+
+	Cells(i, 1) = jour & "/" & mois & "/" & Int((Rnd * 2022) + 1)
+	Cells(i, 2) = Int((Rnd * 40) + 1)
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<p>How to select last 31st entries in column:</p>
+	<pre>
+	<code>
+	Sub Derniermois()
+
+	Dim y As Integer
+	Dim x As Integer
+
+	x = Cells(Rows.Count, 1).End(xlUp).Row
+
+	y = x - 31
+
+	Range(Cells(y, 1), Cells(x, 2)).Select
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

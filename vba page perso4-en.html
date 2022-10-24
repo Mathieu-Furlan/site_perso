@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Third case: populate a column based on value in a row.</p>
+	<p>Summary of the problem:</p>
+	<p><q>I'm trying to write a VBA code whereby, for each row in a given range, if the string "Y" appears at all in a given row, then column "V" of the same row will be populated with "Y".</q></p>
+	<p><q>If no "Y" is found at all, i.e. every value in the row is "N", then column "V" will be populated with "N".</q></p>
+	<p>The code (which generate random data for testing) to do that:<p>
+	<pre>
+	<code>
+	Sub verif()
+
+	Dim i As Integer
+	Dim q As Integer
+	Dim r As Double
+	Dim lastrow As Integer
+	Dim j As Integer
+	Dim res
+
+	Randomize
+
+	For i = 1 To 15
+		For q = 1 To 15
+    
+		r = Rnd
+    
+			If r > 0.95 Then
+				Cells(i, q) = "Y"
+    
+			Else
+				Cells(i, q) = "N"
+            
+			End If
+    
+		Next q
+	Next i
+
+	lastrow = Cells(Rows.Count, "A").End(xlUp).Row
+
+	For j = 1 To lastrow
+    
+		For Each res In Range(Cells(j, 1), Cells(j, 15))
+			If res = "Y" Then
+				Cells(j, 17) = "Y"
+				Exit For
+           
+			Else: Cells(j, 17) = "N"
+       
+			End If
+       
+		Next
+    
+	Next j
+   
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

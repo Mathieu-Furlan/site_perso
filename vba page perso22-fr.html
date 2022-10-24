@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="vba index page perso-fr.html">Index</a><br>
+	<h1>Problèmes VBA et leurs solutions</h1>
+	<p>Vingt-deuxième cas: appliquer une formule à chaque cellules d'une colonne.</p>
+	<p>Résumé du problème:</p>
+	<p><q>J'ai un fichier excel avec une colonne remplie de chiffres (occasionnellement la cellule peut contenir du texte ou être vide).</q></p>
+	<p><q>Je voudrais appliquer une fonction à ces cellules;</q></p>
+	<p><q>Si lacellule est vide ou contient du texte ne rien faire.</q></p>
+	<p><q>Si la valeur est inférieure à 8 dans ce cas elle devient 8, si elle est plus grande ou égale à 8 ne rien faire.</q></p>
+	<p><q>Je souhaiterais remplacer les valeurs plutôt que de les préserver.</q></p>
+	<p>Nous commencons par créer une fonction:</p>
+	<pre>
+	<code>
+	Function plusquehuit(plage As Range) As Variant
+
+    If IsNumeric(plage) And plage &lt;&gt; "" Then
+        If plage &lt; 8 Then
+            plusquehuit = 8
+        Else
+            plusquehuit = plage
+        End If
+    ElseIf Not IsNumeric(plage) Then
+        plusquehuit = plage
+    Else
+        plusquehuit = ""
+    End If
+	End Function
+	</code>
+	</pre>
+	<p>Ensuite la subroutine:</p>
+	<pre>
+	<code>
+	Sub remplacerhuit()
+
+	Dim i As Integer
+
+	For i = 1 To Cells(Rows.Count, 1).End(xlUp).Row
+
+		Cells(i, 2).Value = plusquehuit(Cells(i, 1))
+		Cells(i, 1) = Cells(i, 2)
+		Cells(i, 2).ClearContents
+
+	Next i
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

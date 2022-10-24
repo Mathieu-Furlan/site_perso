@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="vba index page perso-en.html">Index</a><br>
+	<h1>VBA problems and their solutions</h1>
+	<p>Seventh case: hide columns based on condition.</p>
+	<p>Summary of the problem:</p>
+	<p><q>What I would like to do is hide two columns if there is a defined value in another.</q></p>
+	<p>In our exemple (which generate random values for testing) if a cell in comlumn "A" contains the value "3", columns "B" and "C" will be hidden:</p>
+	<p>Macro to randomly populate columns:</p>
+	<pre>
+	<code>
+	Sub populatecolumns()
+
+	Dim i As Integer
+
+	Randomize
+
+	For i = 1 To 30
+
+	Cells(i, 1) = Int((Rnd * 30) + 1)
+	Cells(i, 2) = Int((Rnd * 30) + 1)
+	Cells(i, 3) = Int((Rnd * 30) + 1)
+
+	Next i
+
+	End Sub
+	
+	</code>
+	</pre>
+	<p>Macro to hide columns:</p>
+	<pre>
+	<code>
+
+	Sub cacher()
+
+	Dim q As Integer
+
+	Columns("B:C").Hidden = False
+
+	For q = 1 To Cells((Rows.Count), 1).End(xlUp).Row
+
+    If Cells(q, 1) = 3 Then
+        Columns("B:C").Hidden = True
+        
+    End If
+    
+	Next q
+
+	End Sub
+	</code>
+	</pre>
+	<p>Modifying values in column "A" triggers the macro(code to be added directly to the worksheet):</p>
+	<pre>
+	<code>
+	Private Sub Worksheet_Change(ByVal Target As Range)
+
+	If Not Intersect(Target, Range("A1:A30")) Is Nothing Then
+		Call cacher
+    
+	End If
+
+	End Sub
+	</code>
+	</pre>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

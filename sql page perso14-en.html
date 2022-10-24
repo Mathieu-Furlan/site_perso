@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Fourteenth case: Return two most recent consecutive rows where estimated is 1.</p>
+	<p>What we have:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">billid</th>
+					<th scope="col">accountid</th>
+					<th scope="col">estimated</th>
+					<th scope="col">invoicedate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1111196</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>03/09/2008</td>
+				</tr>
+				<tr>
+					<td>1111195</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>06/08/2008</td>
+				</tr>
+				<tr>
+					<td>1111194</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>03/07/2008</td>
+				</tr>
+				<tr>
+					<td>1111193</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>04/06/2008</td>
+				</tr>
+				<tr>
+					<td>1111192</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>05/05/2008</td>
+				</tr>
+				<tr>
+					<td>1111191</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>04/04/2008</td>
+				</tr>
+				<tr>
+					<td>1111190</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>05/03/2008</td>
+				</tr>
+				<tr>
+					<td>1111189</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>05/02/2008</td>
+				</tr>
+				<tr>
+					<td>1111188</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>07/01/2008</td>
+				</tr>
+				<tr>
+					<td>1111187</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>04/12/2007</td>
+				</tr>
+				<tr>
+					<td>1111186</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>01/11/2007</td>
+				</tr>
+				<tr>
+					<td>1111185</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>01/10/2007</td>
+				</tr>
+				<tr>
+					<td>1111184</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>30/08/2007</td>
+				</tr>
+				<tr>
+					<td>1111183</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>01/08/2007</td>
+				</tr>
+				<tr>
+					<td>1111182</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>02/07/2007</td>
+				</tr>
+				<tr>
+					<td>1111181</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>01/06/2007</td>
+				</tr>
+				<tr>
+					<td>1111180</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>02/05/2007</td>
+				</tr>
+				<tr>
+					<td>1111179</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>30/03/2007</td>
+				</tr>
+				<tr>
+					<td>1111178</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>02/03/2007</td>
+				</tr>	
+				<tr>
+					<td>1111177</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>01/02/2007</td>
+				</tr>
+				<tr>
+					<td>1111176</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>03/01/2007</td>
+				</tr>
+				<tr>
+					<td>1111175</td>
+					<td>1234567</td>
+					<td>0</td>
+					<td>29/11/2006</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>What we would like to achieve:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">billid</th>
+					<th scope="col">accountid</th>
+					<th scope="col">estimated</th>
+					<th scope="col">invoicedate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1111187</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>04/12/2007</td>
+				</tr>
+				<tr>
+					<td>1111188</td>
+					<td>1234567</td>
+					<td>1</td>
+					<td>07/01/2008</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>And finally the code to obtain above result</p>
+	<p>SELECT TOP 2 a.*<br>
+	FROM (SELECT * FROM donnee WHERE estimated = 1)  AS a, (SELECT * FROM donnee WHERE estimated = 1)  AS b<br>
+	WHERE a.accountid = b.accountid AND a.billid = b.billid + 1 OR a.billid = b.billid -1;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Sixteenth case: Fetch closest received dates after each requested dates.</p>
+	<p>What we have:<p>
+		<table>
+		<caption>donneea</caption>
+			<thead>
+				<tr>
+					<th scope="col">po</th>
+					<th scope="col">requesteddate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>14888</td>
+					<td>12/01/2018</td>
+				</tr>
+				<tr>
+					<td>14733</td>
+					<td>12/02/2018</td>
+				</tr>
+				<tr>
+					<td>14555</td>
+					<td>12/05/2018</td>
+				</tr>
+			</tbody>
+		</table><br>
+		<table>
+		<caption>donneeb</caption>
+			<thead>
+				<tr>
+					<th scope="col">po</th>
+					<th scope="col">receiveddate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>14888</td>
+					<td>11/01/2018</td>
+				</tr>
+				<tr>
+					<td>14888</td>
+					<td>14/01/2018</td>
+				</tr>
+				<tr>
+					<td>14733</td>
+					<td>11/02/2018</td>
+				</tr>
+				<tr>
+					<td>14733</td>
+					<td>12/02/2018</td>
+				</tr>
+				<tr>
+					<td>14555</td>
+					<td>23/07/2018</td>
+				</tr>
+				<tr>
+					<td>14555</td>
+					<td>23/09/2018</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>Expected result:</p>
+		<table>
+		<caption>result</caption>
+			<thead>
+				<tr>
+					<th>po</th>
+					<th>requesteddate</th>
+					<th>nearestreceiveddate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>14555</td>
+					<td>12/05/2018</td>
+					<td>23/07/2018</td>
+				</tr>
+				<tr>
+					<td>14733</td>
+					<td>12/02/2018</td>
+					<td>12/02/2018</td>
+				</tr>
+				<tr>
+					<td>14888</td>
+					<td>12/01/2018</td>
+					<td>14/01/2018</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>The query to obtain above result:</p>
+		<p>SELECT a.po, a.requesteddate, Min(receiveddate) AS nearestreceiveddate<br>
+		FROM donneea AS a, donneeb AS b<br>
+		WHERE a.po = b.po AND b.receiveddate >= a.requesteddate<br>
+		GROUP BY a.po, a.requesteddate;</p>
+		<label for="lang-select">Language:</label>
+			<select id="lang-select">
+				<option value= ""> --Language--</option>
+				<option value= "En">English</option>
+				<option value= "Fr">Français</option>
+			</select>
+		<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>

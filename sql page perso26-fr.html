@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Vingt-sixième cas: combiner des lignes si les valeurs se s'intersectionnent.</p>
+	<p>Ce que nous avons:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">limit</th>
+					<th scope="col">roadnum</th>
+					<th scope="col">bmp</th>
+					<th scope="col">emp</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>25</td>
+					<td>10001</td>
+					<td>9,06</td>
+					<td>16,9</td>
+				</tr>
+				<tr>
+					<td>25</td>
+					<td>09002</td>
+					<td>0</td>
+					<td>9,39</td>
+				</tr>
+				<tr>
+					<td>25</td>
+					<td>09002</td>
+					<td>9,2</td>
+					<td>10,5</td>
+				</tr>
+				<tr>
+					<td>25</td>
+					<td>08003</td>
+					<td>0</td>
+					<td>3,1</td>
+				</tr>
+				<tr>
+					<td>25</td>
+					<td>09002</td>
+					<td>9,4</td>
+					<td>10,6</td>
+				</tr>
+				<tr>
+					<td>25</td>
+					<td>08003</td>
+					<td>3,2</td>
+					<td>4</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Nous voudrions fusionner les lignes où limit et roadnum sont identiques.</p>
+	<p>La valeur endemp d'une ligne doit être supérieure à la valeur startbmp mais inférieur à la valeur endemp de l'autre ligne:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">limit</th>
+					<th scope="col">roadnum</th>
+					<th scope="col">startbmp</th>
+					<th scope="col">endemp</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>25</td>
+					<td>08003</td>
+					<td>0</td>
+					<td>3,1</td>
+				</tr>
+				<tr>
+					<td>25</td>
+					<td>08003</td>
+					<td>3,2</td>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>25</td>
+					<td>09002</td>
+					<td>0</td>
+					<td>10,6</td>
+				</tr>
+				<tr>
+					<td>25</td>
+					<td>10001</td>
+					<td>9,06</td>
+					<td>16,9</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>La requête pour obtenir le résultat:</p>
+	<p>SELECT limit, roadnum, startbmp, Max(emp) AS endemp<br>
+	FROM (SELECT a.limit, a.roadnum, IIF(a.bmp = (SELECT Min(bmp) FROM donnee WHERE limit = a.limit AND roadnum = a.roadnum AND emp > a.bmp), a.bmp, (SELECT Min(bmp) FROM donnee WHERE limit = a.limit AND roadnum = a.roadnum)) AS startbmp, a.emp FROM donnee AS a)  AS b<br>
+	GROUP BY limit, roadnum, startbmp;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

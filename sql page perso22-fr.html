@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQL et leurs solutions</h1>
+	<p>Vingt-deuxième cas: pivoter les données.</p>
+	<p>Situation initiale:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">cohort_month</th>
+					<th scope="col">cohort_size</th>
+					<th scope="col">month_difference</th>
+					<th scope="col">percentage</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Dec 2021</td>
+					<td>2981</td>
+					<td>0</td>
+					<td>94,919</td>
+				</tr>
+				<tr>
+					<td>Dec 2021</td>
+					<td>2981</td>
+					<td>1</td>
+					<td>74,829</td>
+				</tr>
+				<tr>
+					<td>Dec 2021</td>
+					<td>2981</td>
+					<td>2</td>
+					<td>81,915</td>
+				</tr>
+				<tr>
+					<td>Dec 2021</td>
+					<td>2981</td>
+					<td>3</td>
+					<td>64,726</td>
+				</tr>
+				<tr>
+					<td>Dec 2021</td>
+					<td>2981</td>
+					<td>4</td>
+					<td>12,85</td>
+				</tr>
+				<tr>
+					<td>Dec 2021</td>
+					<td>2981</td>
+					<td>5</td>
+					<td>87,831</td>
+				</tr>
+				<tr>
+					<td>Dec 2021</td>
+					<td>2981</td>
+					<td>6</td>
+					<td>91,717</td>
+				</tr>
+				<tr>
+					<td>Jan 2022</td>
+					<td>3949</td>
+					<td>0</td>
+					<td>51,827</td>
+				</tr>
+				<tr>
+					<td>Jan 2022</td>
+					<td>3949</td>
+					<td>1</td>
+					<td>73,378</td>
+				</tr>
+				<tr>
+					<td>Jan 2022</td>
+					<td>3949</td>
+					<td>2</td>
+					<td>17,391</td>
+				</tr>
+				<tr>
+					<td>Jan 2022</td>
+					<td>3949</td>
+					<td>3</td>
+					<td>29,039</td>
+				</tr>
+				<tr>
+					<td>Jan 2022</td>
+					<td>3949</td>
+					<td>4</td>
+					<td>3,176</td>
+				</tr>
+				<tr>
+					<td>Jan 2022</td>
+					<td>3949</td>
+					<td>5</td>
+					<td>17,182</td>
+				</tr>
+				<tr>
+					<td>Jan 2022</td>
+					<td>3949</td>
+					<td>6</td>
+					<td>92,193</td>
+				</tr>
+				<tr>
+					<td>Feb 2022</td>
+					<td>7189</td>
+					<td>0</td>
+					<td>95,361</td>
+				</tr>
+				<tr>
+					<td>Feb 2022</td>
+					<td>7189</td>
+					<td>1</td>
+					<td>28,361</td>
+				</tr>
+				<tr>
+					<td>Feb 2022</td>
+					<td>7189</td>
+					<td>2</td>
+					<td>10,178</td>
+				</tr>
+				<tr>
+					<td>Feb 2022</td>
+					<td>7189</td>
+					<td>3</td>
+					<td>82,048</td>
+				</tr>
+				<tr>
+					<td>Feb 2022</td>
+					<td>7189</td>
+					<td>4</td>
+					<td>73,391</td>
+				</tr>
+				<tr>
+					<td>Feb 2022</td>
+					<td>7189</td>
+					<td>5</td>
+					<td>91,361</td>
+				</tr>
+				<tr>
+					<td>Feb 2022</td>
+					<td>7189</td>
+					<td>6</td>
+					<td>81,371</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Ce que nous souhaiterions:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">cohort_month</th>
+					<th scope="col">cohort_size</th>
+					<th scope="col">00</th>
+					<th scope="col">01</th>
+					<th scope="col">02</th>
+					<th scope="col">03</th>
+					<th scope="col">04</th>
+					<th scope="col">05</th>
+					<th scope="col">06</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Dec 2021</td>
+					<td>2981</td>
+					<td>94,919</td>
+					<td>74,829</td>
+					<td>81,915</td>
+					<td>64,726</td>
+					<td>12,85</td>
+					<td>87,831</td>
+					<td>91,717</td>
+				</tr>
+				<tr>
+					<td>Jan 2022</td>
+					<td>7189</td>
+					<td>95,361</td>
+					<td>28,361</td>
+					<td>10,178</td>
+					<td>82,048</td>
+					<td>73,391</td>
+					<td>91,361</td>
+					<td>81,371</td>
+				</tr>
+				<tr>
+					<td>Feb 2022</td>
+					<td>3949</td>
+					<td>51,827</td>
+					<td>73,378</td>
+					<td>17,391</td>
+					<td>29,039</td>
+					<td>3,176</td>
+					<td>17,182</td>
+					<td>92,193</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>La requête pour obtenir le résultat:</p>
+	<p>SELECT cohort_month, cohort_size, Max(IIF(month_difference = 0, percentage, "")) AS 00, Max(IIF(month_difference = 1, percentage, "")) AS 01, Max(IIF(month_difference = 2, percentage, "")) AS 02, Max(IIF(month_difference = 3, percentage, "")) AS 03, Max(IIF(month_difference = 4, percentage, "")) AS 04, Max(IIF(month_difference = 5, percentage, "")) AS 05, Max(IIF(month_difference = 6, percentage, "")) AS 06<br>
+	FROM donnee<br>
+	GROUP BY cohort_month, cohort_size<br>
+	ORDER BY cohort_month;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

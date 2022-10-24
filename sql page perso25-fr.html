@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang = "fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Page internet personnelle de Mathieu Furlan</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-fr.html">Accueil</a><br>
+	<a href ="sql index page perso-fr.html">Index</a><br>
+	<h1>Problèmes SQl et leurs solutions</h1>
+	<p>Vingt-cinquième cas: modifier les valeurs d'une colonne de façon à pouvoir joindre deux tables.</p>
+	<p>Les tables de départ:<p>
+	<table>
+	<caption>donneea</caption>
+			<thead>
+				<tr>
+					<th scope="col">termid</th>
+					<th scope="col">Nominal</th>
+					<th scope="col">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1234</td>
+					<td>75000000</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>123</td>
+					<td>11432105000</td>
+					<td>61</td>
+				</tr>
+				<tr>
+					<td>2345</td>
+					<td>339660000</td>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>234</td>
+					<td>199800000</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>12345</td>
+					<td>3760079000</td>
+					<td>29</td>
+				</tr>
+			</tbody>
+	</table><br>
+	<table>
+	<caption>donneb</caption>
+			<thead>
+				<tr>
+					<th scope="col">tid</th>
+					<th scope="col">type</th>
+					<th scope="col">region</th>
+					<th scope="col">locatin</th>
+					<th scope="col">merk</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>00012345</td>
+					<td>PSW01</td>
+					<td>Jakarta I</td>
+					<td>JKT1-LANTAMAL</td>
+					<td>HYOSUNG</td>
+				</tr>
+				<tr>
+					<td>DTBA234</td>
+					<td>EDC</td>
+					<td>Jakarta I</td>
+					<td>JKT1-RKB BRI</td>
+					<td>HYOSUNG</td>
+				</tr>
+				<tr>
+					<td>00001234</td>
+					<td>PSW01</td>
+					<td>Jakarta I</td>
+					<td>JKT1-APOTIK KIMIA FARMA</td>
+					<td>HYOSUNG</td>
+				</tr>
+				<tr>
+					<td>EDC2345</td>
+					<td>EDC</td>
+					<td>Jakarta III</td>
+					<td>JKT1-KPU JAKARTA PUSAT</td>
+					<td>WINCOR</td>
+				</tr>
+				<tr>
+					<td>00000123</td>
+					<td>PSW01</td>
+					<td>Jakarta I</td>
+					<td>JKT-SPBU CIDENG</td>
+					<td>HYOSUNG</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>Nous voudrions utiliser la commande left join:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">termid</th>
+					<th scope="col">Nominal</th>
+					<th scope="col">Total</th>
+					<th scope="col">newtin</th>
+					<th scope="col">Type</th>
+					<th scope="col">region</th>
+					<th scope="col">locatin</th>
+					<th scope="col">merk</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1234</td>
+					<td>75000000</td>
+					<td>1</td>
+					<td>1234</td>
+					<td>PSW01</td>
+					<td>Jakarta I</td>
+					<td>JKT1-APOTIK KIMIA FARMA</td>
+					<td>HYOSUNG</td>
+				</tr>
+				<tr>
+					<td>123</td>
+					<td>11432105000</td>
+					<td>61</td>
+					<td>123</td>
+					<td>PSW01</td>
+					<td>Jakarta I</td>
+					<td>JKT-SPBU CIDENG</td>
+					<td>HYOSUNG</td>
+				</tr>
+				<tr>
+					<td>2345</td>
+					<td>339660000</td>
+					<td>3</td>
+					<td>2345</td>
+					<td>EDC</td>
+					<td>Jakarta III</td>
+					<td>JKT1-KPU JAKARTA PUSAT</td>
+					<td>WINCOR</td>
+				</tr>
+				<tr>
+					<td>234</td>
+					<td>199800000</td>
+					<td>2</td>
+					<td>234</td>
+					<td>EDC</td>
+					<td>Jakarta I</td>
+					<td>JKT1-RKB BRI</td>
+					<td>HYOSUNG</td>
+				</tr>
+				<tr>
+					<td>12345</td>
+					<td>3760079000</td>
+					<td>29</td>
+					<td>12345</td>
+					<td>PSW01</td>
+					<td>Jakarta I</td>
+					<td>JKT1-LANTAMAL</td>
+					<td>HYOSUNG</td>
+				</tr>
+			</tbody>
+	</html>
+	<p>La requête utilisée:</p>
+	<p>SELECT *<br>
+	FROM donneea AS a LEFT JOIN (SELECT cint(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(tid,'A',''),'B',''),'C',''),'D',''),'E',''),'F',''),'G',''),'H',''),'I',''),'J',''),'K',''),'L',''),'M',''),'N',''),'O',''),'P',''),'Q',''),'R',''),'S',''),'T',''),'U',''),'V',''),'W',''),'X',''),'Y',''),'Z','')) AS newtin, type, region, locatin, merk FROM donneeb)  AS b ON a.termid = b.newtin;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Sauvegarder sur votre ordinateur</button>
+	</body>
+</html>

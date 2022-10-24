@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Twelfth case: Best score by id and version combined.</p>
+	<p>What we have:<p>
+	<table>
+		<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">version</th>
+					<th scope="col">score</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>a</td>
+					<td>88</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>b</td>
+					<td>93</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>c</td>
+					<td>92</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>a</td>
+					<td>89</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>b</td>
+					<td>99</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>c</td>
+					<td>78</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>a</td>
+					<td>95</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>b</td>
+					<td>83</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>c</td>
+					<td>89</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>a</td>
+					<td>90</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>b</td>
+					<td>90</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>c</td>
+					<td>86</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>a</td>
+					<td>82</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>b</td>
+					<td>78</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>c</td>
+					<td>98</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>a</td>
+					<td>79</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>b</td>
+					<td>97</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>c</td>
+					<td>77</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>a</td>
+					<td>100</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>b</td>
+					<td>96</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>c</td>
+					<td>85</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>a</td>
+					<td>83</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>b</td>
+					<td>87</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>c</td>
+					<td>96</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>a</td>
+					<td>84</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>b</td>
+					<td>80</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>c</td>
+					<td>77</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>a</td>
+					<td>95</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>b</td>
+					<td>77</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>What we would like to achieve:</p>
+	<table>
+		<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">a score</th>
+					<th scope="col">b score</th>
+					<th scope="col">c score</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>88</td>
+					<td>97</td>
+					<td>92</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>100</td>
+					<td>99</td>
+					<td>85</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>95</td>
+					<td>87</td>
+					<td>96</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>90</td>
+					<td>90</td>
+					<td>86</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>95</td>
+					<td>78</td>
+					<td>98</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>First solution using subequests:</p>
+	<p>SELECT id, (SELECT Max(score) FROM donnee WHERE id = a.id AND version = "a") AS [a score], (SELECT Max(score) FROM donnee WHERE id = a.id AND version = "b") AS [b score], (SELECT Max(score) FROM donnee WHERE id = a.id AND version = "c") AS [c score]<br>
+	FROM donnee AS a<br>
+	GROUP BY id;</p>
+	<p>Second solution using pivot:</p>
+	<p>TRANSFORM Max(score)<br>
+	SELECT id<br>
+	FROM donnee<br>
+	GROUP BY id<br>
+	PIVOT version;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>	

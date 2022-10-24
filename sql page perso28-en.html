@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="utf-8" />
+		<title>Mathieu Furlan's personnal webpage</title>
+		<link rel="stylesheet" href="pageperso.css" />
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script src="pageperso.js"></script>
+	</head>
+	<body>
+	<a href ="Projet page perso home-en.html">Home</a><br>
+	<a href ="sql index page perso-en.html">Index</a><br>
+	<h1>SQL problems and their solutions</h1>
+	<p>Twenty-heighth case: duplicating rows.</p>
+	<p>What we have:<p>
+	<table>
+	<caption>donnee</caption>
+			<thead>
+				<tr>
+					<th scope="col">acctnum</th>
+					<th scope="col">cancelflag</th>
+					<th scope="col">saledate</th>
+					<th scope="col">saleprice</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Y</td>
+					<td>27/06/2022</td>
+					<td>100</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Y</td>
+					<td>10/05/2022</td>
+					<td>156</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td></td>
+					<td>25/07/2022</td>
+					<td>200</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Y</td>
+					<td>25/07/2022</td>
+					<td>150</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>We would like to duplicate rows which have "Y" as cancelflag.</p>
+	<p>Sale price should be multiplied by -1:</p>
+	<table>
+	<caption>result</caption>
+			<thead>
+				<tr>
+					<th scope="col">acctnum</th>
+					<th scope="col">defcancelflag</th>
+					<th scope="col">saledate</th>
+					<th scope="col">defsaleprice</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Y</td>
+					<td>27/06/2022</td>
+					<td>100</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td></td>
+					<td>27/06/2022</td>
+					<td>-100</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Y</td>
+					<td>10/05/2022</td>
+					<td>156</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td></td>
+					<td>10/05/2022</td>
+					<td>-156</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Y</td>
+					<td>25/07/2022</td>
+					<td>150</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td></td>
+					<td>25/07/2022</td>
+					<td>-150</td>
+				</tr>
+			</tbody>
+	</table>
+	<p>The query to achieve above result:</p>
+	<p>SELECT acctnum, cancelflag As defcancelflag, saledate, saleprice As defsaleprice<br>
+	FROM donnee<br>
+	WHERE cancelflag = "Y"</p>
+
+	<p>UNION ALL SELECT acctnum, Replace(cancelflag, "Y","") As defcancelflag, saledate, saleprice * -1 As defsaleprice<br>
+	FROM donnee<br>
+	WHERE cancelflag = "Y"<br>
+	ORDER BY acctnum, defcancelflag DESC;</p>
+	<label for="lang-select">Language:</label>
+		<select id="lang-select">
+			<option value= ""> --Language--</option>
+			<option value= "En">English</option>
+			<option value= "Fr">Français</option>
+		</select>
+	<button id="buttonID" class="imprim" onclick="imprimerPage()">Save on your computer</button>
+	</body>
+</html>
